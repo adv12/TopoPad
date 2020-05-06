@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TopoPad", "TopoPad\TopoPad.csproj", "{8148B66C-D7CF-4717-BF75-D52665A3E855}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TopoPad.Core", "TopoPad.Core\TopoPad.Core.csproj", "{DA0B77A1-67B0-4241-82C2-D08AC5F4C017}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TopoPad.SceneInteraction", "TopoPad.SceneInteraction\TopoPad.SceneInteraction.csproj", "{0F5321BA-FB8F-43FC-8D81-302DB18907F6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TopoPad.AvaloniaSceneInteraction", "TopoPad.AvaloniaSceneInteraction\TopoPad.AvaloniaSceneInteraction.csproj", "{4EBA1550-9EC7-4DCA-BC0A-449DA7B777E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8148B66C-D7CF-4717-BF75-D52665A3E855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8148B66C-D7CF-4717-BF75-D52665A3E855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8148B66C-D7CF-4717-BF75-D52665A3E855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8148B66C-D7CF-4717-BF75-D52665A3E855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA0B77A1-67B0-4241-82C2-D08AC5F4C017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA0B77A1-67B0-4241-82C2-D08AC5F4C017}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA0B77A1-67B0-4241-82C2-D08AC5F4C017}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA0B77A1-67B0-4241-82C2-D08AC5F4C017}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F5321BA-FB8F-43FC-8D81-302DB18907F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F5321BA-FB8F-43FC-8D81-302DB18907F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F5321BA-FB8F-43FC-8D81-302DB18907F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F5321BA-FB8F-43FC-8D81-302DB18907F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EBA1550-9EC7-4DCA-BC0A-449DA7B777E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EBA1550-9EC7-4DCA-BC0A-449DA7B777E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EBA1550-9EC7-4DCA-BC0A-449DA7B777E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EBA1550-9EC7-4DCA-BC0A-449DA7B777E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FF3EF3E7-C7EC-40E8-AC56-61681E353469}
+	EndGlobalSection
+EndGlobal

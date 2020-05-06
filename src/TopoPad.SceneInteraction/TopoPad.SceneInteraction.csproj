@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>TopoPad.SceneInteraction</AssemblyName>
+    <RootNamespace>TopoPad.SceneInteraction</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TopoPad.Core\TopoPad.Core.csproj" />
+  </ItemGroup>
+
+</Project>
