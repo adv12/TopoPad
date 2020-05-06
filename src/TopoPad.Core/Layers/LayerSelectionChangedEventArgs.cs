@@ -3,10 +3,8 @@ using TopoPad.Core.SpatialItems;
 
 namespace TopoPad.Core.Layers
 {
-    public class LayerSelectionChangedEventArgs
+    public class LayerSelectionChangedEventArgs : LayerChangedEventArgs
     {
-        public IItemsLayer Layer { get; }
-
         public IList<ISpatialItem> NewlySelectedItems { get; } = new List<ISpatialItem>(1);
 
         public IList<ISpatialItem> NewlyDeselectedItems { get; } = new List<ISpatialItem>(1);
@@ -15,9 +13,9 @@ namespace TopoPad.Core.Layers
 
         public IList<ISpatialItem> NewlyDeactivatedItems { get; } = new List<ISpatialItem>(1);
 
-        public LayerSelectionChangedEventArgs(IItemsLayer layer)
+        public LayerSelectionChangedEventArgs(IItemsLayer layer) : base(layer)
         {
-            Layer = layer;
+
         }
     }
 }

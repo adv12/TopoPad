@@ -10,6 +10,10 @@ namespace TopoPad.Core
     {
         event EventHandler<LayerSelectionChangedEventArgs> LayerSelectionChanged;
 
+        event EventHandler<LayerChangedEventArgs> LayerStyleChanged;
+
+        event EventHandler<LayerChangedEventArgs> LayerDataChanged;
+
         string Name { get; set; }
 
         bool Snappable { get; set; }

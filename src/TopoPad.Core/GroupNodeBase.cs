@@ -10,6 +10,10 @@ namespace TopoPad.Core
     {
         public event EventHandler<LayerSelectionChangedEventArgs> LayerSelectionChanged;
 
+        public event EventHandler<LayerChangedEventArgs> LayerStyleChanged;
+
+        public event EventHandler<LayerChangedEventArgs> LayerDataChanged;
+
         public string Name { get; set; }
 
         public virtual Envelope Bounds
@@ -88,6 +92,16 @@ namespace TopoPad.Core
         protected void OnLayerSelectionChanged(LayerSelectionChangedEventArgs e)
         {
             LayerSelectionChanged?.Invoke(this, e);
+        }
+
+        protected void OnLayerStyleChanged(LayerChangedEventArgs e)
+        {
+            LayerStyleChanged?.Invoke(this, e);
+        }
+
+        protected void OnLayerDataChanged(LayerChangedEventArgs e)
+        {
+            LayerDataChanged?.Invoke(this, e);
         }
     }
 }

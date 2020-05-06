@@ -1,6 +1,6 @@
 ﻿namespace TopoPad.Core.Style
 {
-    public class ColorStyle : PropertyNotifier
+    public class ColorStyle : StyleNotifier
     {
         private Rgba m_ForeColor = Rgba.Black;
         public Rgba ForeColor

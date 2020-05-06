@@ -1,4 +1,4 @@
-﻿using NetTopologySuite.Geometries;
+﻿using Ardalis.GuardClauses;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -17,6 +17,19 @@ namespace TopoPad.Core.Layers
         {
             get => m_Selected;
             set => SetField(ref m_Selected, value);
+        }
+
+        private double m_Opacity = 1;
+        public double Opacity
+        {
+            get => m_Opacity;
+            set {
+                Guard.Against.OutOfRange(value, nameof(value), 0, 1);
+                if (SetField(ref m_Opacity, value))
+                {
+                    OnLayerStyleChanged(new LayerChangedEventArgs(this));
+                }
+            }
         }
 
         public Layer(IGroup parentNode): base()

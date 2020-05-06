@@ -32,6 +32,8 @@ namespace TopoPad.Core
                     {
                         node.PropertyChanged += Node_PropertyChanged;
                         node.LayerSelectionChanged += Node_LayerSelectionChanged;
+                        node.LayerStyleChanged += Node_LayerStyleChanged;
+                        node.LayerDataChanged += Node_LayerDataChanged;
                     }
                 }
                 if (e.OldItems != null)
@@ -40,9 +42,21 @@ namespace TopoPad.Core
                     {
                         node.PropertyChanged -= Node_PropertyChanged;
                         node.LayerSelectionChanged -= Node_LayerSelectionChanged;
+                        node.LayerStyleChanged -= Node_LayerStyleChanged;
+                        node.LayerDataChanged -= Node_LayerDataChanged;
                     }
                 }
             }
+        }
+
+        private void Node_LayerStyleChanged(object sender, LayerChangedEventArgs e)
+        {
+            OnLayerStyleChanged(e);
+        }
+
+        private void Node_LayerDataChanged(object sender, LayerChangedEventArgs e)
+        {
+            OnLayerDataChanged(e);
         }
 
         private void Node_LayerSelectionChanged(object sender, LayerSelectionChangedEventArgs e)

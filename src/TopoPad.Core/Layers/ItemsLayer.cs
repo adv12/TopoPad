@@ -2,6 +2,8 @@
 using NetTopologySuite.Geometries;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using TopoPad.Core.SpatialItems;
 using TopoPad.Core.Style;
 
@@ -35,7 +37,10 @@ namespace TopoPad.Core.Layers
             set
             {
                 Guard.Against.Null(value, nameof(value));
-                SetField(ref m_FeatureStyleSet, value);
+                if (SetField(ref m_FeatureStyleSet, value))
+                {
+                    FireStyleChanged();
+                }
             }
         }
 
@@ -46,7 +51,10 @@ namespace TopoPad.Core.Layers
             set
             {
                 Guard.Against.Null(value, nameof(value));
-                SetField(ref m_SelectedFeatureStyleSet, value);
+                if (SetField(ref m_SelectedFeatureStyleSet, value))
+                {
+                    FireStyleChanged();
+                }
             }
         }
 
@@ -57,7 +65,10 @@ namespace TopoPad.Core.Layers
             set
             {
                 Guard.Against.Null(value, nameof(value));
-                SetField(ref m_ActiveFeatureStyleSet, value);
+                if (SetField(ref m_ActiveFeatureStyleSet, value))
+                {
+                    FireStyleChanged();
+                }
             }
         }
 
@@ -189,6 +200,42 @@ namespace TopoPad.Core.Layers
         public bool IsItemActive(ISpatialItem item)
         {
             return false;
+        }
+
+        private bool SetNotifyUnregisterRegister(ref FeatureStyleSet field, FeatureStyleSet value,
+            [CallerMemberName] string propertyName = null)
+        {
+            FeatureStyleSet old = field;
+            bool set = SetField(ref field, value, propertyName);
+            if (set)
+            {
+                if (old != null)
+                {
+                    old.PropertyChanged -= Field_PropertyChanged;
+                    old.StyleChanged -= Field_StyleChanged;
+                }
+                if (field != null)
+                {
+                    field.PropertyChanged += Field_PropertyChanged; ;
+                    field.StyleChanged += Field_StyleChanged;
+                }
+            }
+            return set;
+        }
+
+        private void Field_StyleChanged(object sender, System.EventArgs e)
+        {
+            FireStyleChanged();
+        }
+
+        private void Field_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            FireStyleChanged();
+        }
+
+        private void FireStyleChanged()
+        {
+            OnLayerStyleChanged(new LayerChangedEventArgs(this));
         }
     }
 }

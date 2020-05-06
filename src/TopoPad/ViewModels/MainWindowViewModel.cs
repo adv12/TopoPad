@@ -55,7 +55,7 @@ namespace TopoPad.ViewModels
                     {
                         Geometry = geometry
                     });
-                    ((IViewport)SceneControlViewModel).Fit(SceneControlViewModel.Document);
+                    ((IViewport)SceneControlViewModel).Fit(SceneControlViewModel.Document, .05);
                     SceneControlViewModel.Drawn = false;
                 }
             });

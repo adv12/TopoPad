@@ -42,37 +42,21 @@ namespace TopoPad.AvaloniaSceneInteraction
             }
         }
 
+        public SceneControl()
+        {
+            ClipToBounds = true;
+        }
+
         public override void Render(DrawingContext context)
         {
             if (Scene?.Document != null)
             {
                 bool fast = false;
-                context.FillRectangle(new SolidColorBrush(Scene.Document.BackColor.Argb),
-                    new Rect(Bounds.Size));
                 RenderContext renderContext = new RenderContext(Scene, context);
-                RenderGroup(Scene.Document, renderContext, fast);
-                Scene.Drawn = true;
+                renderContext.RenderScene(Scene, fast);
             }
         }
 
-        public void RenderGroup(IGroup group, RenderContext renderContext, bool fast)
-        {
-            foreach (IGroupNode childNode in group.ChildNodes)
-            {
-                if (childNode is ILayer layer)
-                {
-                    RenderLayer(layer, renderContext, fast);
-                }
-                else if (childNode is IGroup g)
-                {
-                    RenderGroup(g, renderContext, fast);
-                }
-            }
-        }
 
-        public void RenderLayer(ILayer layer, RenderContext renderContext, bool fast)
-        {
-            layer.Render(renderContext, fast);
-        }
     }
 }

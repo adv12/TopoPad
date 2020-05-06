@@ -17,9 +17,39 @@ namespace TopoPad.AvaloniaSceneInteraction
             get => m_Document;
             set
             {
-                this.RaiseAndSetIfChanged(ref m_Document, value);
-                ViewChanged();
+                ISpatialDocument old = m_Document;
+                if (m_Document != this.RaiseAndSetIfChanged(ref m_Document, value))
+                {
+                    if (old != null)
+                    {
+                        old.LayerSelectionChanged -= Document_LayerSelectionChanged;
+                        old.LayerStyleChanged -= Document_LayerStyleChanged;
+                        old.LayerDataChanged -= Document_LayerDataChanged;
+                    }
+                    if (Document != null)
+                    {
+                        Document.LayerSelectionChanged += Document_LayerSelectionChanged;
+                        Document.LayerStyleChanged += Document_LayerStyleChanged;
+                        Document.LayerDataChanged += Document_LayerDataChanged;
+                    }
+                    ViewChanged();
+                }
             }
+        }
+
+        private void Document_LayerDataChanged(object sender, Core.Layers.LayerChangedEventArgs e)
+        {
+            Drawn = false;
+        }
+
+        private void Document_LayerSelectionChanged(object sender, Core.Layers.LayerSelectionChangedEventArgs e)
+        {
+            Drawn = false;
+        }
+
+        private void Document_LayerStyleChanged(object sender, Core.Layers.LayerChangedEventArgs e)
+        {
+            Drawn = false;
         }
 
         private Avalonia.Rect m_Bounds;
