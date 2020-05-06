@@ -48,8 +48,8 @@ namespace TopoPad.AvaloniaSceneInteraction
             Polygon viewPolygon = (Polygon)Viewport.GetViewGeometry(polygon);
             AM.PathGeometry geometry = new AM.PathGeometry();
             AM.StreamGeometryContext geometryContext = geometry.Open();
-            DrawPolygonRing(polygon.Shell, false, geometryContext);
-            foreach (LinearRing hole in polygon.Holes)
+            DrawPolygonRing(viewPolygon.Shell, false, geometryContext);
+            foreach (LinearRing hole in viewPolygon.Holes)
             {
                 DrawPolygonRing(hole, true, geometryContext);
             }

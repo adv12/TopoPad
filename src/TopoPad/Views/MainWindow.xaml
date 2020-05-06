@@ -15,10 +15,14 @@
 
     <DockPanel>
         <DockPanel DockPanel.Dock="Bottom" Margin="10">
-            <Button DockPanel.Dock="Right" VerticalAlignment="Top" Margin="10,0,0,0">Add Geometry</Button>
+            <Button DockPanel.Dock="Right" VerticalAlignment="Top" Margin="10,0,0,0"
+                    Command ="{Binding AddGeometry}">Add Geometry</Button>
             <TextBox AcceptsReturn="True" Height="100" Text="{Binding GeometryText}"></TextBox>
         </DockPanel>
-        <asi:SceneControl Document="{Binding Document}"/>
+        <asi:SceneControl DataContext="{Binding SceneControlViewModel}"
+                          Bounds="{Binding Path=Bounds, Mode=OneWayToSource}"
+                          Scene="{Binding .}"
+                          Drawn="{Binding Drawn}"/>
     </DockPanel>
     
 </Window>

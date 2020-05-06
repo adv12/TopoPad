@@ -1,6 +1,5 @@
 ﻿using Ardalis.GuardClauses;
 using NetTopologySuite.Geometries;
-using NetTopologySuite.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using TopoPad.Core.SpatialItems;
@@ -11,6 +10,22 @@ namespace TopoPad.Core.Layers
     public class ItemsLayer : Layer, IItemsLayer
     {
         private readonly ObservableCollection<ISpatialItem> m_Items = new ObservableCollection<ISpatialItem>();
+
+        public override Envelope Bounds
+        {
+            get
+            {
+                Envelope bounds = new Envelope();
+                foreach (ISpatialItem item in Items)
+                {
+                    if (item.Bounds != null)
+                    {
+                        bounds.ExpandToInclude(item.Bounds);
+                    }
+                }
+                return bounds;
+            }
+        }
 
         public ReadOnlyObservableCollection<ISpatialItem> Items { get; }
 
@@ -138,7 +153,7 @@ namespace TopoPad.Core.Layers
 
         public bool IsItemSelected(ISpatialItem item)
         {
-            throw new System.NotImplementedException();
+            return false;
         }
 
         public void ActivateItem(ISpatialItem item)
@@ -173,7 +188,7 @@ namespace TopoPad.Core.Layers
 
         public bool IsItemActive(ISpatialItem item)
         {
-            throw new System.NotImplementedException();
+            return false;
         }
     }
 }

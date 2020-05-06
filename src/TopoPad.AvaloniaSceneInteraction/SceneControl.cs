@@ -1,130 +1,57 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-using NetTopologySuite.Geometries.Utilities;
-using System.Collections.Generic;
 using TopoPad.Core;
 using TopoPad.Core.Layers;
 using TopoPad.SceneInteraction;
-using Geometry = NetTopologySuite.Geometries.Geometry;
 
 namespace TopoPad.AvaloniaSceneInteraction
 {
-    public class SceneControl : Control, IScene
+    public class SceneControl : Control
     {
-        public static readonly DirectProperty<SceneControl, ISpatialDocument> DocumentProperty =
-            AvaloniaProperty.RegisterDirect<SceneControl, ISpatialDocument>(
-                nameof(Document),
-                o => o.Document,
-                (o, v) => o.Document = v);
+        public static readonly DirectProperty<SceneControl, IScene> SceneProperty =
+            AvaloniaProperty.RegisterDirect<SceneControl, IScene>(
+                nameof(Scene),
+                o => o.Scene,
+                (o, v) => o.Scene = v);
 
-        public static readonly DirectProperty<SceneControl, double> ScaleProperty =
-            AvaloniaProperty.RegisterDirect<SceneControl, double>(
-                nameof(Scale),
-                o => o.Scale,
-                (o, v) => o.Scale = v);
+        public static readonly DirectProperty<SceneControl, bool> DrawnProperty =
+            AvaloniaProperty.RegisterDirect<SceneControl, bool>(
+                nameof(Drawn),
+                o => o.Drawn,
+                (o, v) => o.Drawn = v);
 
-        public static readonly DirectProperty<SceneControl, double> CenterXProperty =
-            AvaloniaProperty.RegisterDirect<SceneControl, double>(
-                nameof(CenterX),
-                o => o.CenterX,
-                (o, v) => o.CenterX = v);
+        private IScene m_Scene;
+        public IScene Scene
+        {
+            get => m_Scene;
+            set => SetAndRaise(SceneProperty, ref m_Scene, value);
+        }
 
-        public static readonly DirectProperty<SceneControl, double> CenterYProperty =
-            AvaloniaProperty.RegisterDirect<SceneControl, double>(
-                nameof(CenterY),
-                o => o.CenterY,
-                (o, v) => o.CenterY = v);
-
-        private Dictionary<Geometry, Geometry> m_WorldToViewGeometries = new Dictionary<Geometry, Geometry>();
-
-        private ISpatialDocument m_Document;
-        public ISpatialDocument Document {
-            get => m_Document;
+        private bool m_Drawn;
+        public bool Drawn
+        {
+            get => m_Drawn;
             set
             {
-                if (SetAndRaise(DocumentProperty, ref m_Document, value))
+                SetAndRaise(DrawnProperty, ref m_Drawn, value);
+                if (!Drawn)
                 {
                     InvalidateVisual();
                 }
             }
         }
 
-        private double m_Scale = 1;
-        public double Scale {
-            get => m_Scale;
-            set
-            {
-                if (SetAndRaise(ScaleProperty, ref m_Scale, value))
-                {
-                    ViewChanged();
-                }
-            }
-        }
-
-        private double m_CenterX;
-        public double CenterX {
-            get => m_CenterX;
-            set
-            {
-                if (SetAndRaise(CenterXProperty, ref m_CenterX, value))
-                {
-                    ViewChanged();
-                }
-            }
-        }
-
-        private double m_CenterY;
-        public double CenterY {
-            get => m_CenterY;
-            set
-            {
-                if (SetAndRaise(CenterYProperty, ref m_CenterY, value))
-                {
-                    ViewChanged();
-                }
-            }
-        }
-
-        private AffineTransformation m_ViewToWorldTransform;
-        public AffineTransformation ViewToWorldTransform
-        {
-            get
-            {
-                if (m_ViewToWorldTransform == null)
-                {
-                    m_ViewToWorldTransform = AffineTransformation.TranslationInstance(-Width / 2, -Height / 2);
-                    m_ViewToWorldTransform.Scale(1 / Scale, 1 / Scale);
-                    m_ViewToWorldTransform.Translate(CenterX, CenterY);
-                }
-                return m_ViewToWorldTransform;
-            }
-        }
-
-        private AffineTransformation m_WorldToViewTransform;
-        public AffineTransformation WorldToViewTransform
-        {
-            get
-            {
-                if (m_WorldToViewTransform == null)
-                {
-                    m_WorldToViewTransform = AffineTransformation.TranslationInstance(-CenterX, -CenterY);
-                    m_WorldToViewTransform.Scale(Scale, Scale);
-                    m_WorldToViewTransform.Translate(Width / 2, Height / 2);
-                }
-                return m_WorldToViewTransform;
-            }
-        }
-
         public override void Render(DrawingContext context)
         {
-            if (Document != null)
+            if (Scene?.Document != null)
             {
                 bool fast = false;
-                context.FillRectangle(new SolidColorBrush(Document.BackColor.Argb),
+                context.FillRectangle(new SolidColorBrush(Scene.Document.BackColor.Argb),
                     new Rect(Bounds.Size));
-                RenderContext renderContext = new RenderContext(this, context);
-                RenderGroup(Document, renderContext, fast);
+                RenderContext renderContext = new RenderContext(Scene, context);
+                RenderGroup(Scene.Document, renderContext, fast);
+                Scene.Drawn = true;
             }
         }
 
@@ -146,27 +73,6 @@ namespace TopoPad.AvaloniaSceneInteraction
         public void RenderLayer(ILayer layer, RenderContext renderContext, bool fast)
         {
             layer.Render(renderContext, fast);
-        }
-
-        public void CacheViewGeometry(NetTopologySuite.Geometries.Geometry worldGeometry, Geometry viewGeometry)
-        {
-            m_WorldToViewGeometries[worldGeometry] = viewGeometry;
-        }
-
-        public NetTopologySuite.Geometries.Geometry GetCachedViewGeometry(Geometry worldGeometry)
-        {
-            if (!m_WorldToViewGeometries.TryGetValue(worldGeometry, out Geometry viewGeometry))
-            {
-                return viewGeometry;
-            }
-            return null;
-        }
-
-        private void ViewChanged()
-        {
-            m_ViewToWorldTransform = null;
-            m_WorldToViewTransform = null;
-            InvalidateVisual();
         }
     }
 }

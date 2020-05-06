@@ -2,8 +2,8 @@
 
 namespace TopoPad.Core.SpatialItems
 {
-    public interface ISpatialItem
+    public interface ISpatialItem : IBoundedItem
     {
-        Envelope Bounds { get; }
+
     }
 }

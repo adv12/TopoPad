@@ -6,17 +6,24 @@ using TopoPad.Core.Layers;
 
 namespace TopoPad.Core
 {
-    public interface IGroupNode : INotifyPropertyChanged
+    public interface IGroupNode : INotifyPropertyChanged, IBoundedItem
     {
         event EventHandler<LayerSelectionChangedEventArgs> LayerSelectionChanged;
+
         string Name { get; set; }
-        Envelope Bounds { get; }
+
         bool Snappable { get; set; }
+
         bool ItemsSelectable { get; set; }
+
         bool ItemsMovable { get; set; }
+
         bool FeaturesEditable { get; set; }
+
         Coordinate GetSnapPoint(Coordinate input);
+
         IGroup ParentNode { get; set; }
+
         ReadOnlyObservableCollection<IGroupNode> ChildNodes { get; }
     }
 }
