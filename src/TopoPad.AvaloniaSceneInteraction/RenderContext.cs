@@ -39,24 +39,33 @@ namespace TopoPad.AvaloniaSceneInteraction
 
         public void RenderGroup(IGroup group, bool fast)
         {
-            foreach (IGroupNode childNode in group.ChildNodes)
+            if (group.Visible)
             {
-                if (childNode is ILayer layer)
+                using (DrawingContext.PushedState state = m_Context.PushOpacity(group.Opacity))
                 {
-                    RenderLayer(layer, fast);
-                }
-                else if (childNode is IGroup g)
-                {
-                    RenderGroup(g, fast);
+                    foreach (IGroupNode childNode in group.ChildNodes)
+                    {
+                        if (childNode is ILayer layer)
+                        {
+                            RenderLayer(layer, fast);
+                        }
+                        else if (childNode is IGroup g)
+                        {
+                            RenderGroup(g, fast);
+                        }
+                    }
                 }
             }
         }
 
         public void RenderLayer(ILayer layer, bool fast)
         {
-            using (DrawingContext.PushedState state = m_Context.PushOpacity(layer.Opacity))
+            if (layer.Visible)
             {
-                layer.Render(this, fast);
+                using (DrawingContext.PushedState state = m_Context.PushOpacity(layer.Opacity))
+                {
+                    layer.Render(this, fast);
+                }
             }
         }
 

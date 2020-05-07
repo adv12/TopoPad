@@ -3,11 +3,17 @@
 // full text of the license.
 
 using Dock.Model.Controls;
+using TopoPad.Core;
+using TopoPad.SceneInteraction;
 
 namespace TopoPad.ViewModels
 {
     public class SceneToolViewModel : Tool
     {
         public SceneViewModel SceneViewModel { get; } = new SceneViewModel();
+
+        public IScene Scene => SceneViewModel?.Scene;
+
+        public ISpatialDocument Document => Scene?.Document;
     }
 }

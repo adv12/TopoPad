@@ -19,5 +19,43 @@ namespace TopoPad.Core
         ILayer SelectedLayer { get; }
 
         Rgba BackColor { get; set; }
+
+        IItemsLayer AddItemsLayerAtSelectedNode()
+        {
+            IGroupNode node = SelectedNode;
+            if (node is IGroup group)
+            {
+                return group.AddItemsLayer();
+            }
+            else if (node is ILayer)
+            {
+                return node.ParentNode?.AddItemsLayer();
+            }
+            else
+            {
+                return AddItemsLayer();
+            }
+        }
+
+        IGroup AddGroupAtSelectedNode(int maxGroupLevels)
+        {
+            IGroupNode node = SelectedNode;
+            if (node is ILayer)
+            {
+                node = node.ParentNode;
+            }
+            while (node != null && node.NumAncestors >= maxGroupLevels)
+            {
+                node = node.ParentNode;
+            }
+            if (node is IGroup group)
+            {
+                return group?.AddGroup();
+            }
+            else
+            {
+                return AddGroup();
+            }
+        }
     }
 }

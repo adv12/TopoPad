@@ -29,16 +29,30 @@ namespace TopoPad.AvaloniaSceneInteraction
                         old.LayerSelectionChanged -= Document_LayerSelectionChanged;
                         old.LayerStyleChanged -= Document_LayerStyleChanged;
                         old.LayerDataChanged -= Document_LayerDataChanged;
+                        old.VisibilityChanged -= Document_VisibilityChanged;
+                        old.OpacityChanged -= Document_OpacityChanged;
                     }
                     if (Document != null)
                     {
                         Document.LayerSelectionChanged += Document_LayerSelectionChanged;
                         Document.LayerStyleChanged += Document_LayerStyleChanged;
                         Document.LayerDataChanged += Document_LayerDataChanged;
+                        Document.VisibilityChanged += Document_VisibilityChanged;
+                        Document.OpacityChanged += Document_OpacityChanged;
                     }
                     ViewChanged();
                 }
             }
+        }
+
+        private void Document_OpacityChanged(object sender, GroupNodeChangedEventArgs e)
+        {
+            Drawn = false;
+        }
+
+        private void Document_VisibilityChanged(object sender, GroupNodeChangedEventArgs e)
+        {
+            Drawn = false;
         }
 
         private void Document_LayerDataChanged(object sender, Core.Layers.LayerChangedEventArgs e)

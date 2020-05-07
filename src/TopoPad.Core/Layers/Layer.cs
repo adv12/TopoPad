@@ -2,7 +2,6 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
-using Ardalis.GuardClauses;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -23,19 +22,6 @@ namespace TopoPad.Core.Layers
             set => SetField(ref m_Selected, value);
         }
 
-        private double m_Opacity = 1;
-        public double Opacity
-        {
-            get => m_Opacity;
-            set {
-                Guard.Against.OutOfRange(value, nameof(value), 0, 1);
-                if (SetField(ref m_Opacity, value))
-                {
-                    OnLayerStyleChanged(new LayerChangedEventArgs(this));
-                }
-            }
-        }
-
         public Layer(IGroup parentNode, string name = null): base()
         {
             m_ReadOnlyChildNodes = new ReadOnlyObservableCollection<IGroupNode>(m_ChildNodes);
@@ -43,7 +29,7 @@ namespace TopoPad.Core.Layers
             if (name == null)
             {
                 List<string> allNames = GetAllNodeNames();
-                for (int i = 0; true; i++)
+                for (int i = 1; true; i++)
                 {
                     name = "Layer " + i;
                     if (!allNames.Contains(name))

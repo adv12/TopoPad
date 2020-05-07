@@ -2,6 +2,7 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
+using Ardalis.GuardClauses;
 using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,42 @@ namespace TopoPad.Core
 
         public event EventHandler<LayerChangedEventArgs> LayerDataChanged;
 
+        public event EventHandler<GroupNodeChangedEventArgs> VisibilityChanged;
+
+        public event EventHandler<GroupNodeChangedEventArgs> OpacityChanged;
+
         private string m_Name;
         public string Name
         {
             get => m_Name;
             set => SetField(ref m_Name, value);
+        }
+
+        private bool m_Visible = true;
+        public bool Visible
+        {
+            get => m_Visible;
+            set
+            {
+                if (SetField(ref m_Visible, value))
+                {
+                    OnVisibilityChanged(new GroupNodeChangedEventArgs(this));
+                }
+            }
+        }
+
+        private double m_Opacity = 1;
+        public double Opacity
+        {
+            get => m_Opacity;
+            set
+            {
+                Guard.Against.OutOfRange(value, nameof(value), 0, 1);
+                if (SetField(ref m_Opacity, value))
+                {
+                    OnOpacityChanged(new GroupNodeChangedEventArgs(this));
+                }
+            }
         }
 
         public virtual Envelope Bounds
@@ -85,7 +117,7 @@ namespace TopoPad.Core
                 top = top.ParentNode;
             }
             List<string> names = new List<string>();
-            GetNodeNames(names, this);
+            GetNodeNames(names, top);
             return names;
         }
 
@@ -111,6 +143,16 @@ namespace TopoPad.Core
         protected void OnLayerDataChanged(LayerChangedEventArgs e)
         {
             LayerDataChanged?.Invoke(this, e);
+        }
+
+        protected void OnVisibilityChanged(GroupNodeChangedEventArgs e)
+        {
+            VisibilityChanged?.Invoke(this, e);
+        }
+
+        protected void OnOpacityChanged(GroupNodeChangedEventArgs e)
+        {
+            OpacityChanged?.Invoke(this, e);
         }
     }
 }

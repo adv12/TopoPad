@@ -38,6 +38,8 @@ namespace TopoPad.Core
                         node.LayerSelectionChanged += Node_LayerSelectionChanged;
                         node.LayerStyleChanged += Node_LayerStyleChanged;
                         node.LayerDataChanged += Node_LayerDataChanged;
+                        node.VisibilityChanged += Node_VisibilityChanged;
+                        node.OpacityChanged += Node_OpacityChanged;
                     }
                 }
                 if (e.OldItems != null)
@@ -48,9 +50,21 @@ namespace TopoPad.Core
                         node.LayerSelectionChanged -= Node_LayerSelectionChanged;
                         node.LayerStyleChanged -= Node_LayerStyleChanged;
                         node.LayerDataChanged -= Node_LayerDataChanged;
+                        node.VisibilityChanged -= Node_VisibilityChanged;
+                        node.OpacityChanged -= Node_OpacityChanged;
                     }
                 }
             }
+        }
+
+        private void Node_OpacityChanged(object sender, GroupNodeChangedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void Node_VisibilityChanged(object sender, GroupNodeChangedEventArgs e)
+        {
+            OnVisibilityChanged(e);
         }
 
         private void Node_LayerStyleChanged(object sender, LayerChangedEventArgs e)
@@ -76,19 +90,22 @@ namespace TopoPad.Core
             }
         }
 
-        public Group(IGroup parentNode): this()
+        public Group(IGroup parentNode, string name = null): this()
         {
             ParentNode = parentNode;
-            List<string> allNames = GetAllNodeNames();
-            for (int i = 0; ; i++)
+            if (name == null)
             {
-                string name = "Group " + i;
-                if (!allNames.Contains(name))
+                List<string> allNames = GetAllNodeNames();
+                for (int i = 1; ; i++)
                 {
-                    Name = name;
-                    break;
+                    name = "Group " + i;
+                    if (!allNames.Contains(name))
+                    {
+                        break;
+                    }
                 }
             }
+            Name = name;
         }
 
         public IGroup AddGroup()

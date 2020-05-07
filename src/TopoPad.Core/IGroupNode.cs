@@ -18,7 +18,15 @@ namespace TopoPad.Core
 
         event EventHandler<LayerChangedEventArgs> LayerDataChanged;
 
+        event EventHandler<GroupNodeChangedEventArgs> VisibilityChanged;
+
+        event EventHandler<GroupNodeChangedEventArgs> OpacityChanged;
+
         string Name { get; set; }
+
+        bool Visible { get; set; }
+
+        double Opacity { get; set; }
 
         bool Snappable { get; set; }
 
@@ -31,6 +39,21 @@ namespace TopoPad.Core
         Coordinate GetSnapPoint(Coordinate input);
 
         IGroup ParentNode { get; set; }
+
+        int NumAncestors
+        {
+            get
+            {
+                int i = 0;
+                IGroupNode parent = ParentNode;
+                while (parent != null)
+                {
+                    parent = parent.ParentNode;
+                    i++;
+                }
+                return i;
+            }
+        }
 
         ReadOnlyObservableCollection<IGroupNode> ChildNodes { get; }
 
