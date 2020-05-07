@@ -1,4 +1,10 @@
-﻿<Application xmlns="https://github.com/avaloniaui"
+﻿<!--
+Copyright (c) 2020 Andrew Vardeman.  Published under the MIT license.
+See license.txt in the TopoPad distribution or repository for the
+full text of the license.
+-->
+
+<Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TopoPad"
              x:Class="TopoPad.App">
