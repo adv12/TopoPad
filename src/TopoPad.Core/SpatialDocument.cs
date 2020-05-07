@@ -1,4 +1,6 @@
-﻿namespace TopoPad.Core
+﻿using System.Collections.ObjectModel;
+
+namespace TopoPad.Core
 {
     public class SpatialDocument : Group, ISpatialDocument
     {
@@ -15,9 +17,12 @@
             set => SetField(ref m_BackColor, value);
         }
 
+        public ObservableCollection<IGroupNode> SelectedNodes { get; } = new ObservableCollection<IGroupNode>();
+
         public SpatialDocument(): base()
         {
             Name = "Document";
         }
+
     }
 }

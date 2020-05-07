@@ -4,6 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:asi="clr-namespace:TopoPad.AvaloniaSceneInteraction;assembly=TopoPad.AvaloniaSceneInteraction"
+        xmlns:tpc="clr-namespace:TopoPad.Core;assembly=TopoPad.Core"
+        xmlns:tpcl="clr-namespace:TopoPad.Core.Layers;assembly=TopoPad.Core"
+        xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+        xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+        xmlns:iac="clr-namespace:Avalonia.Xaml.Interactions.Custom;assembly=Avalonia.Xaml.Interactions.Custom"
         mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
         x:Class="TopoPad.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -14,12 +19,68 @@
     </Design.DataContext>
 
     <DockPanel>
+        <DockPanel DockPanel.Dock="Left" Margin="10,10,0,10" Width="200">
+            <TreeView Name="LayersTreeView" DataContext="{Binding SceneControlViewModel.Document}"
+                      Items="{Binding ChildNodes}" SelectedItems="{Binding SelectedNodes}">
+                <TreeView.DataTemplates>
+                    <TreeDataTemplate DataType="tpc:IGroup" ItemsSource="{Binding ChildNodes}">
+                        <TextBlock Name="" Foreground="Red" Text="{Binding Name}"/>
+                    </TreeDataTemplate>
+                    <DataTemplate DataType="tpcl:ILayer">
+                        <StackPanel Name="LayerNameStackPanel" Orientation="Horizontal">
+                            <TextBlock Name="LayerNameTextBlock" Text="{Binding Name}">
+                                <i:Interaction.Behaviors>
+                                    <ia:EventTriggerBehavior EventName="DoubleTapped"
+                                                             SourceObject="{Binding RelativeSource={RelativeSource 
+                                                                        FindAncestor,
+                                                                        AncestorType={x:Type TextBlock}}}">
+                                        <ia:ChangePropertyAction TargetObject="{Binding RelativeSource={RelativeSource 
+                                                                        FindAncestor,
+                                                                        AncestorType={x:Type TextBlock}}}"
+                                                                 PropertyName="IsVisible"
+                                                                 Value="False"/>
+                                        <ia:ChangePropertyAction TargetObject="{Binding RelativeSource={RelativeSource 
+                                                                        FindAncestor,
+                                                                        AncestorType={x:Type StackPanel}},
+                                                                        Path=#LayerNameTextBox}"
+                                                                 PropertyName="IsVisible"
+                                                                 Value="True"/>
+                                    </ia:EventTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                            </TextBlock>
+                            <TextBox Name="LayerNameTextBox" Text="{Binding Name}" IsVisible="False"
+                                     BorderThickness="0" Padding="0">
+                                <i:Interaction.Behaviors>
+                                    <ia:EventTriggerBehavior EventName="LostFocus"
+                                                             SourceObject="{Binding RelativeSource={RelativeSource 
+                                                                        FindAncestor,
+                                                                        AncestorType={x:Type TextBox}}}">
+                                        <ia:ChangePropertyAction TargetObject="{Binding RelativeSource={RelativeSource 
+                                                                        FindAncestor,
+                                                                        AncestorType={x:Type StackPanel}},
+                                                                        Path=#LayerNameTextBlock}"
+                                                                 PropertyName="IsVisible"
+                                                                 Value="True"/>
+                                        <ia:ChangePropertyAction TargetObject="{Binding RelativeSource={RelativeSource 
+                                                                        FindAncestor,
+                                                                        AncestorType={x:Type TextBox}}}"
+                                                                 PropertyName="IsVisible"
+                                                                 Value="False"/>
+                                    </ia:EventTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </TreeView.DataTemplates>
+            </TreeView>
+        </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" Margin="10">
             <Button DockPanel.Dock="Right" VerticalAlignment="Top" Margin="10,0,0,0"
                     Command ="{Binding AddGeometry}">Add Geometry</Button>
             <TextBox AcceptsReturn="True" Height="100" Text="{Binding GeometryText}"></TextBox>
         </DockPanel>
-        <asi:SceneControl DataContext="{Binding SceneControlViewModel}"
+        <asi:SceneControl Margin="10,10,10,0"
+                          DataContext="{Binding SceneControlViewModel}"
                           Bounds="{Binding Path=Bounds, Mode=OneWayToSource}"
                           Scene="{Binding .}"
                           Drawn="{Binding Drawn}"/>

@@ -14,7 +14,12 @@ namespace TopoPad.Core
 
         public event EventHandler<LayerChangedEventArgs> LayerDataChanged;
 
-        public string Name { get; set; }
+        private string m_Name;
+        public string Name
+        {
+            get => m_Name;
+            set => SetField(ref m_Name, value);
+        }
 
         public virtual Envelope Bounds
         {

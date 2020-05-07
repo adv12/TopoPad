@@ -36,6 +36,7 @@ namespace TopoPad.ViewModels
             SceneControlViewModel = new SceneControlViewModel();
             SceneControlViewModel.Document = new SpatialDocument();
             Layer = SceneControlViewModel.Document.AddItemsLayer();
+            Layer.Name = "WKT Geometries";
             AddGeometry = ReactiveCommand.Create(() =>
             {
                 Geometry geometry = null;
