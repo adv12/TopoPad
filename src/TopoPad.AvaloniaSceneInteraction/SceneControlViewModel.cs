@@ -70,25 +70,40 @@ namespace TopoPad.AvaloniaSceneInteraction
             Drawn = false;
         }
 
-        private Avalonia.Rect m_Bounds;
         public Avalonia.Rect Bounds {
-            get => m_Bounds;
             set
             {
-                this.RaiseAndSetIfChanged(ref m_Bounds, value);
-                if (m_Bounds != null)
+                if (value != null)
                 {
-                    Width = m_Bounds.Width;
-                    this.RaisePropertyChanged(nameof(Width));
-                    Height = m_Bounds.Height;
-                    this.RaisePropertyChanged(nameof(Height));
+                    Width = value.Width;
+                    Height = value.Height;
+                }
+            }
+        }
+
+        private double m_Width;
+        public double Width {
+            get => m_Width;
+            private set
+            {
+                if (m_Width != this.RaiseAndSetIfChanged(ref m_Width, value))
+                {
                     ViewChanged();
                 }
             }
         }
 
-        public double Width { get; private set; }
-        public double Height { get; private set; }
+        private double m_Height;
+        public double Height {
+            get => m_Height;
+            private set
+            {
+                if (m_Height != this.RaiseAndSetIfChanged(ref m_Height, value))
+                {
+                    ViewChanged();
+                }
+            }
+        }
 
         private double m_Scale = 1;
         public double Scale

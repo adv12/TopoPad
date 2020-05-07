@@ -19,6 +19,6 @@ full text of the license.
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <idc:DockControl Layout="{Binding Layout}"/>
+    <idc:DockControl Layout="{Binding Layout}" Margin="0,4,0,0"/>
     
 </Window>
