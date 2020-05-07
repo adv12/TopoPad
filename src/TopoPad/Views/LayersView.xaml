@@ -1,0 +1,67 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tpc="clr-namespace:TopoPad.Core;assembly=TopoPad.Core"
+             xmlns:tpcl="clr-namespace:TopoPad.Core.Layers;assembly=TopoPad.Core"
+             xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+             xmlns:iac="clr-namespace:Avalonia.Xaml.Interactions.Custom;assembly=Avalonia.Xaml.Interactions.Custom"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TopoPad.Views.LayersView">
+    <DockPanel>
+        <TreeView Name="LayersTreeView" DataContext="{Binding SceneViewModel.Scene.Document}"
+                  Items="{Binding ChildNodes}" SelectedItems="{Binding SelectedNodes}">
+            <TreeView.DataTemplates>
+                <TreeDataTemplate DataType="tpc:IGroup" ItemsSource="{Binding ChildNodes}">
+                    <TextBlock Name="" Foreground="Red" Text="{Binding Name}"/>
+                </TreeDataTemplate>
+                <DataTemplate DataType="tpcl:ILayer">
+                    <StackPanel Name="LayerNameStackPanel" Orientation="Horizontal">
+                        <TextBlock Name="LayerNameTextBlock" Text="{Binding Name}">
+                            <i:Interaction.Behaviors>
+                                <ia:EventTriggerBehavior EventName="DoubleTapped"
+                                                         SourceObject="{Binding RelativeSource={RelativeSource 
+                                                                        FindAncestor,
+                                                                        AncestorType={x:Type TextBlock}}}">
+                                    <ia:ChangePropertyAction TargetObject="{Binding RelativeSource={RelativeSource 
+                                                                        FindAncestor,
+                                                                        AncestorType={x:Type TextBlock}}}"
+                                                             PropertyName="IsVisible"
+                                                             Value="False"/>
+                                    <ia:ChangePropertyAction TargetObject="{Binding RelativeSource={RelativeSource 
+                                                                        FindAncestor,
+                                                                        AncestorType={x:Type StackPanel}},
+                                                                        Path=#LayerNameTextBox}"
+                                                             PropertyName="IsVisible"
+                                                             Value="True"/>
+                                </ia:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                        </TextBlock>
+                        <TextBox Name="LayerNameTextBox" Text="{Binding Name}" IsVisible="False"
+                                 BorderThickness="0" Padding="0">
+                            <i:Interaction.Behaviors>
+                                <ia:EventTriggerBehavior EventName="LostFocus"
+                                                         SourceObject="{Binding RelativeSource={RelativeSource 
+                                                                        FindAncestor,
+                                                                        AncestorType={x:Type TextBox}}}">
+                                    <ia:ChangePropertyAction TargetObject="{Binding RelativeSource={RelativeSource 
+                                                                        FindAncestor,
+                                                                        AncestorType={x:Type StackPanel}},
+                                                                        Path=#LayerNameTextBlock}"
+                                                             PropertyName="IsVisible"
+                                                             Value="True"/>
+                                    <ia:ChangePropertyAction TargetObject="{Binding RelativeSource={RelativeSource 
+                                                                        FindAncestor,
+                                                                        AncestorType={x:Type TextBox}}}"
+                                                             PropertyName="IsVisible"
+                                                             Value="False"/>
+                                </ia:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                    </StackPanel>
+                </DataTemplate>
+            </TreeView.DataTemplates>
+        </TreeView>
+    </DockPanel>
+</UserControl>

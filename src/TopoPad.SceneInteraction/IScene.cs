@@ -2,10 +2,8 @@
 
 namespace TopoPad.SceneInteraction
 {
-    public interface IScene : IViewport
+    public interface IScene : IReadOnlyScene, ISpatialDocumentContainer
     {
-        ISpatialDocument Document { get; }
 
-        public bool Drawn { get; set; }
     }
 }

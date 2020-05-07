@@ -32,20 +32,23 @@ namespace TopoPad.Core.Layers
             }
         }
 
-        public Layer(IGroup parentNode): base()
+        public Layer(IGroup parentNode, string name = null): base()
         {
             m_ReadOnlyChildNodes = new ReadOnlyObservableCollection<IGroupNode>(m_ChildNodes);
             ParentNode = parentNode;
-            List<string> allNames = GetAllNodeNames();
-            for (int i = 0; true; i++)
+            if (name == null)
             {
-                string name = "Layer " + i;
-                if (!allNames.Contains(name))
+                List<string> allNames = GetAllNodeNames();
+                for (int i = 0; true; i++)
                 {
-                    Name = name;
-                    break;
+                    name = "Layer " + i;
+                    if (!allNames.Contains(name))
+                    {
+                        break;
+                    }
                 }
             }
+            Name = name;
         }
 
         public abstract void Render(IRenderContext renderContext, bool fast);

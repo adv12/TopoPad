@@ -1,6 +1,7 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using Dock.Model;
 using TopoPad.ViewModels;
 
 namespace TopoPad
@@ -26,7 +27,7 @@ namespace TopoPad
 
         public bool Match(object data)
         {
-            return data is ViewModelBase;
+            return data is ViewModelBase || data is IDockable;
         }
     }
 }

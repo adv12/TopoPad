@@ -7,7 +7,7 @@ using TopoPad.SceneInteraction;
 
 namespace TopoPad.AvaloniaSceneInteraction
 {
-    public class SceneControlViewModel : ReactiveObject, IScene
+    public class SceneControlViewModel : ReactiveObject, IScene, ISpatialDocumentContainer
     {
         private Dictionary<Geometry, Geometry> m_WorldToViewGeometries = new Dictionary<Geometry, Geometry>();
 

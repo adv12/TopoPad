@@ -97,6 +97,11 @@ namespace TopoPad.Core
             return new ItemsLayer(this);
         }
 
+        public IItemsLayer AddItemsLayer(string name)
+        {
+            return new ItemsLayer(this, name);
+        }
+
         public void AddChild(IGroupNode child)
         {
             m_ChildNodes.Add(child);

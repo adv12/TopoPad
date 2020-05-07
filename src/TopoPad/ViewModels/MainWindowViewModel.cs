@@ -1,66 +1,30 @@
-﻿using NetTopologySuite.Geometries;
-using NetTopologySuite.IO;
+﻿using Dock.Model;
 using ReactiveUI;
-using System;
-using System.Reactive;
-using TopoPad.AvaloniaSceneInteraction;
-using TopoPad.Core;
-using TopoPad.Core.Layers;
 
 namespace TopoPad.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public SceneControlViewModel SceneControlViewModel { get; }
+        private IFactory m_Factory;
+        private IDock m_Layout;
+        private string m_CurrentView;
 
-        public IItemsLayer Layer { get; }
-
-        private string m_GeometryText;
-        public string GeometryText
+        public IFactory Factory
         {
-            get => m_GeometryText;
-            set => this.RaiseAndSetIfChanged(ref m_GeometryText, value);
+            get => m_Factory;
+            set => this.RaiseAndSetIfChanged(ref m_Factory, value);
         }
 
-        private string m_ErrorText;
-        public string ErrorText
+        public IDock Layout
         {
-            get => m_ErrorText;
-            set => this.RaiseAndSetIfChanged(ref m_ErrorText, value);
+            get => m_Layout;
+            set => this.RaiseAndSetIfChanged(ref m_Layout, value);
         }
 
-        public ReactiveCommand<Unit, Unit> AddGeometry { get; }
-
-        public MainWindowViewModel()
+        public string CurrentView
         {
-            SceneControlViewModel = new SceneControlViewModel();
-            SceneControlViewModel.Document = new SpatialDocument();
-            Layer = SceneControlViewModel.Document.AddItemsLayer();
-            Layer.Name = "WKT Geometries";
-            AddGeometry = ReactiveCommand.Create(() =>
-            {
-                Geometry geometry = null;
-                try
-                {
-                    WKTReader reader = new WKTReader();
-                    geometry = reader.Read(GeometryText);
-                    ErrorText = null;
-                }
-                catch (Exception ex)
-                {
-                    ErrorText = "Error parsing WKT: " + ex.Message;
-                }
-                if (geometry != null)
-                {
-                    Layer.AddItem(new Feature()
-                    {
-                        Geometry = geometry
-                    });
-                    ((IViewport)SceneControlViewModel).Fit(SceneControlViewModel.Document, .05);
-                    SceneControlViewModel.Drawn = false;
-                }
-            });
+            get => m_CurrentView;
+            set => this.RaiseAndSetIfChanged(ref m_CurrentView, value);
         }
-
     }
 }

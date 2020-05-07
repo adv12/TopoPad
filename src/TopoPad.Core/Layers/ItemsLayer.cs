@@ -72,7 +72,7 @@ namespace TopoPad.Core.Layers
             }
         }
 
-        public ItemsLayer(IGroup parentNode) : base(parentNode)
+        public ItemsLayer(IGroup parentNode, string name = null) : base(parentNode, name)
         {
             Items = new ReadOnlyObservableCollection<ISpatialItem>(m_Items);
         }

@@ -29,5 +29,23 @@ namespace TopoPad.Core
         IGroup ParentNode { get; set; }
 
         ReadOnlyObservableCollection<IGroupNode> ChildNodes { get; }
+
+        IGroupNode FindTopMatchingChild(Func<IGroupNode, bool> nodeTester)
+        {
+            for (int i = ChildNodes.Count - 1; i >= 0; i--)
+            {
+                IGroupNode child = ChildNodes[i];
+                if (nodeTester(child))
+                {
+                    return child;
+                }
+                IGroupNode match = child.FindTopMatchingChild(nodeTester);
+                if (match != null)
+                {
+                    return match;
+                }
+            }
+            return null;
+        }
     }
 }

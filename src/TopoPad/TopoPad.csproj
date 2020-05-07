@@ -14,11 +14,54 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
+    <AvaloniaResource Remove="Views\AddGeometryView.xaml" />
+    <AvaloniaResource Remove="Views\EditLayerView.xaml" />
+    <AvaloniaResource Remove="Views\LayersView.xaml" />
+    <AvaloniaResource Remove="Views\MainView.xaml" />
+    <AvaloniaResource Remove="Views\SceneControlDocumentView.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\AddGeometryView.xaml" />
+    <None Remove="Views\EditLayerView.xaml" />
+    <None Remove="Views\LayersView.xaml" />
+    <None Remove="Views\MainView.xaml" />
+    <None Remove="Views\SceneControlDocumentView.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.9.9" />
     <PackageReference Include="Avalonia.Desktop" Version="0.9.9" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.9" />
     <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.9.9" />
+    <PackageReference Include="Dock.Avalonia" Version="0.9.9" />
+    <PackageReference Include="Dock.Avalonia.Themes.Default" Version="0.9.9" />
+    <PackageReference Include="Dock.Avalonia.Themes.Metro" Version="0.9.9" />
+    <PackageReference Include="Dock.Model.ReactiveUI" Version="0.9.9" />
     <PackageReference Include="NetTopologySuite.IO.GeoJSON" Version="2.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SceneControlDocumentView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\MainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\LayersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AddGeometryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EditLayerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TopoPad.AvaloniaSceneInteraction\TopoPad.AvaloniaSceneInteraction.csproj" />

@@ -1,8 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-using TopoPad.Core;
-using TopoPad.Core.Layers;
 using TopoPad.SceneInteraction;
 
 namespace TopoPad.AvaloniaSceneInteraction
