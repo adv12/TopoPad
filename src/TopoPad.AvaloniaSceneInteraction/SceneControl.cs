@@ -4,7 +4,9 @@
 
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Media;
+using TopoPad.AvaloniaSceneInteraction.EventArgs;
 using TopoPad.SceneInteraction;
 
 namespace TopoPad.AvaloniaSceneInteraction
@@ -55,10 +57,44 @@ namespace TopoPad.AvaloniaSceneInteraction
             {
                 bool fast = false;
                 RenderContext renderContext = new RenderContext(Scene, context);
-                renderContext.RenderScene(Scene, fast);
+                renderContext.RenderScene(fast);
             }
         }
 
+        protected override void OnPointerMoved(PointerEventArgs e)
+        {
+            Scene?.OnPointerMoved(new PointerEventArgsWrapper(e, this));
+            if (!e.Handled)
+            {
+                base.OnPointerMoved(e);
+            }
+        }
 
+        protected override void OnPointerPressed(PointerPressedEventArgs e)
+        {
+            Scene?.OnPointerPressed(new PointerEventArgsWrapper(e, this));
+            if (!e.Handled)
+            {
+                base.OnPointerPressed(e);
+            }
+        }
+
+        protected override void OnPointerReleased(PointerReleasedEventArgs e)
+        {
+            Scene?.OnPointerReleased(new PointerReleasedEventArgsWrapper(e, this));
+            if (!e.Handled)
+            {
+                base.OnPointerReleased(e);
+            }
+        }
+
+        protected override void OnPointerWheelChanged(PointerWheelEventArgs e)
+        {
+            Scene?.OnPointerWheelChanged(new PointerWheelEventArgsWrapper(e, this));
+            if (!e.Handled)
+            {
+                base.OnPointerWheelChanged(e);
+            }
+        }
     }
 }

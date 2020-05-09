@@ -27,6 +27,7 @@ namespace TopoPad
         {
             SpatialDocument document = new SpatialDocument();
             ILayer layer = document.AddItemsLayer();
+            document.SelectedNode = layer;
             layer.Name = "WKT Geometries";
 
             var documentViewModel = new SceneControlDocumentViewModel()
@@ -45,8 +46,8 @@ namespace TopoPad
 
             var editLayerToolViewModel = new EditLayerViewModel()
             {
-                Id = "EditLayer",
-                Title = "Edit Layer"
+                Id = "GroupAndLayerSettings",
+                Title = "Group and Layer Settings"
             };
             editLayerToolViewModel.SceneViewModel.Scene = documentViewModel.SceneControlViewModel;
 

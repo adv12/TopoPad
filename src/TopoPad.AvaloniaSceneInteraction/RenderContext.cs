@@ -17,24 +17,25 @@ namespace TopoPad.AvaloniaSceneInteraction
 {
     public class RenderContext : IRenderContext
     {
-        public IViewport Viewport { get; }
+        private IScene m_Scene;
+        public IViewport Viewport => m_Scene;
 
         private AM.DrawingContext m_Context;
 
-        public RenderContext(IViewport viewport, AM.DrawingContext drawingContext)
+        public RenderContext(IScene scene, AM.DrawingContext drawingContext)
         {
-            Guard.Against.Null(viewport, nameof(viewport));
+            Guard.Against.Null(scene, nameof(scene));
             Guard.Against.Null(drawingContext, nameof(drawingContext));
-            Viewport = viewport;
+            m_Scene = scene;
             m_Context = drawingContext;
         }
 
-        public void RenderScene(IScene scene, bool fast)
+        public void RenderScene(bool fast)
         {
-            m_Context.FillRectangle(new SolidColorBrush(scene.Document.BackColor.Argb),
-                    new A.Rect(new A.Point(0, 0), new A.Size(scene.Width, scene.Height)));
-            RenderGroup(scene.Document, fast);
-            scene.Drawn = true;
+            m_Context.FillRectangle(new SolidColorBrush(m_Scene.Document.BackColor.Argb),
+                    new A.Rect(new A.Point(0, 0), new A.Size(m_Scene.Width, m_Scene.Height)));
+            RenderGroup(m_Scene.Document, fast);
+            m_Scene.Drawn = true;
         }
 
         public void RenderGroup(IGroup group, bool fast)

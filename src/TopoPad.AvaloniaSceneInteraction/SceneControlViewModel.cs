@@ -8,6 +8,7 @@ using ReactiveUI;
 using System.Collections.Generic;
 using TopoPad.Core;
 using TopoPad.SceneInteraction;
+using TopoPad.SceneInteraction.Interactions;
 
 namespace TopoPad.AvaloniaSceneInteraction
 {
@@ -181,6 +182,17 @@ namespace TopoPad.AvaloniaSceneInteraction
             }
         }
 
+        private List<IInteraction> m_Interactions = new List<IInteraction>();
+
+        private IReadOnlyList<IInteraction> m_ReadOnlyInteractions;
+        public IReadOnlyList<IInteraction> Interactions => m_ReadOnlyInteractions ??
+            (m_ReadOnlyInteractions = m_Interactions.AsReadOnly());
+
+        public SceneControlViewModel()
+        {
+            PushInteraction(new ZoomInteraction());
+        }
+
         private void ViewChanged()
         {
             m_ViewToWorldTransform = null;
@@ -201,6 +213,23 @@ namespace TopoPad.AvaloniaSceneInteraction
                 return viewGeometry;
             }
             return null;
+        }
+
+        public void PushInteraction(IInteraction interaction)
+        {
+            m_Interactions.Insert(0, interaction);
+            interaction.Scene = this;
+        }
+
+        public IInteraction PopInteraction()
+        {
+            IInteraction interaction = null;
+            if (m_Interactions.Count > 0)
+            {
+                interaction = m_Interactions[0];
+                m_Interactions.RemoveAt(0);
+            }
+            return interaction;
         }
     }
 }
