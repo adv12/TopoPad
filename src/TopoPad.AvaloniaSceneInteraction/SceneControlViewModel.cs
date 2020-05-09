@@ -198,6 +198,7 @@ namespace TopoPad.AvaloniaSceneInteraction
         public SceneControlViewModel()
         {
             PushInteraction(new PointerWheelZoomInteraction());
+            PushInteraction(new DragPanInteraction());
         }
 
         private void ViewChanged()

@@ -22,6 +22,8 @@ namespace TopoPad.Core
 
         double CenterY { get; set; }
 
+        Coordinate Center => new Coordinate(CenterX, CenterY);
+
         AffineTransformation ViewToWorldTransform { get; }
 
         AffineTransformation WorldToViewTransform { get; }
@@ -138,10 +140,30 @@ namespace TopoPad.Core
             CenterOn(envelope.Centre.X, envelope.Centre.Y);
         }
 
+        void CenterOn(Coordinate c)
+        {
+            CenterOn(c.X, c.Y);
+        }
+
         void CenterOn(double x, double y)
         {
             CenterX = x;
             CenterY = y;
+        }
+
+        void PanView(double viewX, double viewY)
+        {
+            Coordinate c = new Coordinate();
+            WorldToViewTransform.Transform(Center, c);
+            c.X -= viewX;
+            c.Y -= viewY;
+            ViewToWorldTransform.Transform(c, c);
+            CenterOn(c);
+        }
+
+        void PanViewFraction(double viewFractionX, double viewFractionY)
+        {
+            PanView(Width * viewFractionX, Height * viewFractionY);
         }
     }
 }
