@@ -3,6 +3,7 @@
 // full text of the license.
 
 using Ardalis.GuardClauses;
+using System.Drawing;
 
 namespace TopoPad.Core.Style
 {
@@ -30,7 +31,13 @@ namespace TopoPad.Core.Style
             }
         }
 
-        private PointStyle m_VertexStyle = new PointStyle();
+        private PointStyle m_VertexStyle = new PointStyle()
+        {
+            FillStyle = new FillStyle
+            {
+                Color = Rgba.White
+            }
+        };
         public PointStyle VertexStyle
         {
             get => m_VertexStyle;

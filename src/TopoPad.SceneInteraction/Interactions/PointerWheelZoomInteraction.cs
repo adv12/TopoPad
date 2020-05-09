@@ -1,25 +1,14 @@
-﻿using System;
+﻿// Copyright (c) 2020 Andrew Vardeman.  Published under the MIT license.
+// See license.txt in the TopoPad distribution or repository for the
+// full text of the license.
+
+using System;
 using TopoPad.SceneInteraction.InputEvents;
 
 namespace TopoPad.SceneInteraction.Interactions
 {
-    public class ZoomInteraction : InteractionBase
+    public class PointerWheelZoomInteraction : InteractionBase
     {
-        public override void OnPointerMoved(IPointerEventArgs e)
-        {
-
-        }
-
-        public override void OnPointerPressed(IPointerEventArgs e)
-        {
-
-        }
-
-        public override void OnPointerReleased(IPointerReleasedEventArgs e)
-        {
-
-        }
-
         public override void OnPointerWheelChanged(IPointerWheelEventArgs e)
         {
             if (e.Delta.Y > 0)
@@ -30,6 +19,7 @@ namespace TopoPad.SceneInteraction.Interactions
             {
                 Scene.Scale /= (1 + Math.Abs(e.Delta.Y) / 10);
             }
+            e.Handled = true;
         }
     }
 }

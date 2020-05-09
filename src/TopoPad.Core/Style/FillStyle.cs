@@ -8,8 +8,7 @@ namespace TopoPad.Core.Style
     {
         public FillStyle()
         {
-            ForeColor = Rgba.White;
-            BackColor = Rgba.Black;
+            Color = new Rgba(255, 255, 255, 200);
         }
     }
 }

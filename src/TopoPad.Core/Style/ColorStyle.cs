@@ -6,18 +6,11 @@ namespace TopoPad.Core.Style
 {
     public class ColorStyle : StyleNotifier
     {
-        private Rgba m_ForeColor = Rgba.Black;
-        public Rgba ForeColor
+        private Rgba m_Color = Rgba.Black;
+        public Rgba Color
         {
-            get => m_ForeColor;
-            set => SetField(ref m_ForeColor, value);
-        }
-
-        private Rgba m_BackColor = Rgba.TransparentWhite;
-        public Rgba BackColor
-        {
-            get => m_BackColor;
-            set => SetField(ref m_BackColor, value);
+            get => m_Color;
+            set => SetField(ref m_Color, value);
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿using TopoPad.SceneInteraction.InputEvents;
+﻿// Copyright (c) 2020 Andrew Vardeman.  Published under the MIT license.
+// See license.txt in the TopoPad distribution or repository for the
+// full text of the license.
+
+using TopoPad.SceneInteraction.InputEvents;
 
 namespace TopoPad.SceneInteraction.Interactions
 {
@@ -6,12 +10,24 @@ namespace TopoPad.SceneInteraction.Interactions
     {
         public IScene Scene { get; set; }
 
-        public abstract void OnPointerMoved(IPointerEventArgs e);
+        public virtual void OnPointerMoved(IPointerEventArgs e)
+        {
 
-        public abstract void OnPointerPressed(IPointerEventArgs e);
+        }
 
-        public abstract void OnPointerReleased(IPointerReleasedEventArgs e);
+        public virtual void OnPointerPressed(IPointerEventArgs e)
+        {
 
-        public abstract void OnPointerWheelChanged(IPointerWheelEventArgs e);
+        }
+
+        public virtual void OnPointerReleased(IPointerReleasedEventArgs e)
+        {
+
+        }
+
+        public virtual void OnPointerWheelChanged(IPointerWheelEventArgs e)
+        {
+
+        }
     }
 }

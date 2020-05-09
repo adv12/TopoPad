@@ -184,13 +184,20 @@ namespace TopoPad.AvaloniaSceneInteraction
 
         private List<IInteraction> m_Interactions = new List<IInteraction>();
 
-        private IReadOnlyList<IInteraction> m_ReadOnlyInteractions;
-        public IReadOnlyList<IInteraction> Interactions => m_ReadOnlyInteractions ??
-            (m_ReadOnlyInteractions = m_Interactions.AsReadOnly());
+        public IEnumerable<IInteraction> Interactions
+        {
+            get
+            {
+                for (int i = m_Interactions.Count - 1; i >= 0; i--)
+                {
+                    yield return m_Interactions[i];
+                }
+            }
+        }
 
         public SceneControlViewModel()
         {
-            PushInteraction(new ZoomInteraction());
+            PushInteraction(new PointerWheelZoomInteraction());
         }
 
         private void ViewChanged()
@@ -217,7 +224,7 @@ namespace TopoPad.AvaloniaSceneInteraction
 
         public void PushInteraction(IInteraction interaction)
         {
-            m_Interactions.Insert(0, interaction);
+            m_Interactions.Add(interaction);
             interaction.Scene = this;
         }
 
@@ -228,6 +235,7 @@ namespace TopoPad.AvaloniaSceneInteraction
             {
                 interaction = m_Interactions[0];
                 m_Interactions.RemoveAt(0);
+                interaction.Scene = null;
             }
             return interaction;
         }

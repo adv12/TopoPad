@@ -135,8 +135,8 @@ namespace TopoPad.AvaloniaSceneInteraction
             {
                 DrawPolygonRing(hole, true, geometryContext);
             }
-            m_Context.DrawGeometry(new SolidColorBrush(fillStyle.ForeColor.Argb),
-                new Pen(new SolidColorBrush(lineStyle.ForeColor.Argb)),
+            m_Context.DrawGeometry(new SolidColorBrush(fillStyle.Color.Argb),
+                new Pen(new SolidColorBrush(lineStyle.Color.Argb)),
                 geometry);
             DrawCoordinates(viewPolygon.Shell.Coordinates, vertexStyle, fast, true);
             foreach (LinearRing hole in viewPolygon.Holes)
@@ -162,7 +162,7 @@ namespace TopoPad.AvaloniaSceneInteraction
             {
                 return null;
             }
-            return new SolidColorBrush(fillStyle.ForeColor.Argb);
+            return new SolidColorBrush(fillStyle.Color.Argb);
         }
 
         private Pen GetPen(LineStyle lineStyle)
@@ -173,7 +173,7 @@ namespace TopoPad.AvaloniaSceneInteraction
             }
             if (lineStyle.Type == LineType.Solid)
             {
-                return new Pen(new SolidColorBrush(lineStyle.ForeColor.Argb), lineStyle.Width);
+                return new Pen(new SolidColorBrush(lineStyle.Color.Argb), lineStyle.Width);
             }
             IDashStyle dashStyle = null;
             switch (lineStyle.Type)
@@ -191,7 +191,7 @@ namespace TopoPad.AvaloniaSceneInteraction
                     dashStyle = DashStyle.Dash;
                     break;
             }
-            return new Pen(new SolidColorBrush(lineStyle.ForeColor.Argb), lineStyle.Width, dashStyle);
+            return new Pen(new SolidColorBrush(lineStyle.Color.Argb), lineStyle.Width, dashStyle);
         }
 
         private A.Rect GetPointRect(Coordinate c, double size)

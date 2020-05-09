@@ -14,7 +14,7 @@ namespace TopoPad.SceneInteraction
     {
         bool Drawn { get; set; }
 
-        IReadOnlyList<IInteraction> Interactions { get; }
+        IEnumerable<IInteraction> Interactions { get; }
 
         void PushInteraction(IInteraction interaction);
 

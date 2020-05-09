@@ -27,7 +27,7 @@ namespace TopoPad.Core
 
         public ILayer SelectedLayer => SelectedNode as ILayer;
 
-        private Rgba m_BackColor = new Rgba(200, 255);
+        private Rgba m_BackColor = Rgba.FromHex("#CCC");
         public Rgba BackColor
         {
             get => m_BackColor;
