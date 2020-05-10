@@ -8,6 +8,7 @@ full text of the license.
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tpv="clr-namespace:TopoPad.Views;assembly=TopoPad"
              xmlns:tpc="clr-namespace:TopoPad.Core;assembly=TopoPad.Core"
              xmlns:tpcl="clr-namespace:TopoPad.Core.Layers;assembly=TopoPad.Core"
              xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
@@ -23,8 +24,12 @@ full text of the license.
     </UserControl.Styles>
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-            <Button Margin="5,5,0,5" Command="{Binding AddGroupCommand}">New Group</Button>
-            <Button Margin="5,5,5,5" Command="{Binding AddLayerCommand}">New Layer</Button>
+            <Button Margin="5,5,0,5" Command="{Binding AddGroupCommand}">
+                <tpv:FolderPlusIcon Width="24" Height="24"/>
+            </Button>
+            <Button Margin="5,5,5,5" Command="{Binding AddLayerCommand}">
+                <tpv:LayerPlusIcon Width="24" Height="24"/>
+            </Button>
         </StackPanel>
         <Border BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=#LayersTreeView.BorderBrush}" BorderThickness="1">
             <StackPanel>
@@ -42,6 +47,7 @@ full text of the license.
                         <TreeDataTemplate DataType="tpc:IGroup" ItemsSource="{Binding ChildNodes}">
                             <StackPanel DockPanel.Dock="Bottom" Name="GroupNameStackPanel" Orientation="Horizontal">
                                 <CheckBox IsChecked="{Binding Visible}" Margin="0,5,5,5"/>
+                                <tpv:FolderIcon Width="24" Height="24" Margin="0,5,5,5"/>
                                 <TextBlock Name="GroupNameTextBlock" Text="{Binding Name}" VerticalAlignment="Center">
                                     <i:Interaction.Behaviors>
                                         <ia:EventTriggerBehavior EventName="DoubleTapped"
@@ -88,6 +94,7 @@ full text of the license.
                         <DataTemplate DataType="tpcl:ILayer">
                             <StackPanel DockPanel.Dock="Bottom" Name="LayerNameStackPanel" Orientation="Horizontal">
                                 <CheckBox IsChecked="{Binding Visible}" Margin="0,5,5,5"/>
+                                <tpv:LayerIcon Width="24" Height="24" Margin="0,5,5,5"/>
                                 <TextBlock Name="LayerNameTextBlock" Text="{Binding Name}" VerticalAlignment="Center">
                                     <i:Interaction.Behaviors>
                                         <ia:EventTriggerBehavior EventName="DoubleTapped"

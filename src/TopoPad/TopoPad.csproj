@@ -16,6 +16,10 @@
   <ItemGroup>
     <AvaloniaResource Remove="Views\AddGeometryView.xaml" />
     <AvaloniaResource Remove="Views\EditLayerView.xaml" />
+    <AvaloniaResource Remove="Views\FolderIcon.xaml" />
+    <AvaloniaResource Remove="Views\FolderPlusIcon.xaml" />
+    <AvaloniaResource Remove="Views\LayerIcon.xaml" />
+    <AvaloniaResource Remove="Views\LayerPlusIcon.xaml" />
     <AvaloniaResource Remove="Views\LayersView.xaml" />
     <AvaloniaResource Remove="Views\MainView.xaml" />
     <AvaloniaResource Remove="Views\SceneControlDocumentView.xaml" />
@@ -23,6 +27,10 @@
   <ItemGroup>
     <None Remove="Views\AddGeometryView.xaml" />
     <None Remove="Views\EditLayerView.xaml" />
+    <None Remove="Views\FolderIcon.xaml" />
+    <None Remove="Views\FolderPlusIcon.xaml" />
+    <None Remove="Views\LayerIcon.xaml" />
+    <None Remove="Views\LayerPlusIcon.xaml" />
     <None Remove="Views\LayersView.xaml" />
     <None Remove="Views\MainView.xaml" />
     <None Remove="Views\SceneControlDocumentView.xaml" />
@@ -60,6 +68,26 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\EditLayerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\FolderIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\FolderPlusIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\LayerIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\LayerPlusIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

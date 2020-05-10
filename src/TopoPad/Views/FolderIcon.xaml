@@ -1,0 +1,23 @@
+﻿<!--
+Copyright (c) 2020 Andrew Vardeman.  Published under the MIT license.
+See license.txt in the TopoPad distribution or repository for the
+full text of the license.
+-->
+
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="16" d:DesignHeight="16"
+             x:Class="TopoPad.Views.FolderIcon">
+    <Viewbox Stretch="Uniform">
+        <Canvas Name="svg74" Width="512" Height="512">
+            <Canvas.RenderTransform>
+                <TranslateTransform X="0" Y="0"/>
+            </Canvas.RenderTransform>
+            <Canvas.Resources/>
+            <!--Unknown tag: sodipodi:namedview-->
+            <Path Name="path72" Fill="#666666" Data="M464 128H272l-64-64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48z"/>
+        </Canvas>
+    </Viewbox>
+</UserControl>
