@@ -2,8 +2,8 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
-using ReactiveUI;
 using System.Reactive;
+using ReactiveUI;
 
 namespace TopoPad.ViewModels
 {

@@ -2,16 +2,16 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
-using Ardalis.GuardClauses;
-using NetTopologySuite.Geometries;
 using System.Linq;
-using TopoPad.Core;
-using TopoPad.Core.Style;
-using AM = Avalonia.Media;
-using A = Avalonia;
+using Ardalis.GuardClauses;
 using Avalonia.Media;
+using NetTopologySuite.Geometries;
+using TopoPad.Core;
 using TopoPad.Core.Layers;
+using TopoPad.Core.Style;
 using TopoPad.SceneInteraction;
+using A = Avalonia;
+using AM = Avalonia.Media;
 
 namespace TopoPad.AvaloniaSceneInteraction
 {
@@ -73,7 +73,7 @@ namespace TopoPad.AvaloniaSceneInteraction
         public void DrawImage(IImage image, int sourceX, int sourceY, int sourceWidth, int sourceHeight, int level,
             Envelope bounds, bool fast)
         {
-            
+
         }
 
         public void DrawLineString(LineString lineString, LineStyle lineStyle, PointStyle vertexStyle, bool fast)

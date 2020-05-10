@@ -90,7 +90,7 @@ namespace TopoPad.Core
             }
         }
 
-        public Group(IGroup parentNode, string name = null): this()
+        public Group(IGroup parentNode, string name = null) : this()
         {
             ParentNode = parentNode;
             if (name == null)

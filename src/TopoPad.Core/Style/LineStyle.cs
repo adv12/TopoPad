@@ -14,7 +14,8 @@ namespace TopoPad.Core.Style
         }
 
         private double m_Width = 1;
-        public double Width {
+        public double Width
+        {
             get => m_Width;
             set => SetField(ref m_Width, value);
         }

@@ -2,11 +2,11 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
+using System.ComponentModel;
+using System.Linq;
 using Ardalis.GuardClauses;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.Geometries.Utilities;
-using System.ComponentModel;
-using System.Linq;
 
 namespace TopoPad.Core
 {

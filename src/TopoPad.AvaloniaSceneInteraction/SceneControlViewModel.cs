@@ -2,10 +2,10 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
+using System.Collections.Generic;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.Geometries.Utilities;
 using ReactiveUI;
-using System.Collections.Generic;
 using TopoPad.Core;
 using TopoPad.SceneInteraction;
 using TopoPad.SceneInteraction.Interactions;
@@ -71,7 +71,8 @@ namespace TopoPad.AvaloniaSceneInteraction
             Drawn = false;
         }
 
-        public Avalonia.Rect Bounds {
+        public Avalonia.Rect Bounds
+        {
             set
             {
                 if (value != null)
@@ -83,7 +84,8 @@ namespace TopoPad.AvaloniaSceneInteraction
         }
 
         private double m_Width;
-        public double Width {
+        public double Width
+        {
             get => m_Width;
             private set
             {
@@ -95,7 +97,8 @@ namespace TopoPad.AvaloniaSceneInteraction
         }
 
         private double m_Height;
-        public double Height {
+        public double Height
+        {
             get => m_Height;
             private set
             {

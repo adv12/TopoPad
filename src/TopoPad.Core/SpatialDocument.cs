@@ -10,7 +10,8 @@ namespace TopoPad.Core
     public class SpatialDocument : Group, ISpatialDocument
     {
         private long m_SpatialReference = 0;
-        public long SpatialReference {
+        public long SpatialReference
+        {
             get => m_SpatialReference;
             set => SetField(ref m_SpatialReference, value);
         }
@@ -33,7 +34,7 @@ namespace TopoPad.Core
             set => SetField(ref m_BackColor, value);
         }
 
-        public SpatialDocument(): base()
+        public SpatialDocument() : base()
         {
             Name = "Document";
         }

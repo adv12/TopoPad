@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace TopoPad.Core.Layers
 {
-    public abstract class Layer: GroupNodeBase, ILayer
+    public abstract class Layer : GroupNodeBase, ILayer
     {
         private readonly ObservableCollection<IGroupNode> m_ChildNodes = new ObservableCollection<IGroupNode>();
 
@@ -22,7 +22,7 @@ namespace TopoPad.Core.Layers
             set => SetField(ref m_Selected, value);
         }
 
-        public Layer(IGroup parentNode, string name = null): base()
+        public Layer(IGroup parentNode, string name = null) : base()
         {
             m_ReadOnlyChildNodes = new ReadOnlyObservableCollection<IGroupNode>(m_ChildNodes);
             ParentNode = parentNode;

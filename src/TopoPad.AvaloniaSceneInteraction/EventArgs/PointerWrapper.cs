@@ -16,7 +16,7 @@ namespace TopoPad.AvaloniaSceneInteraction.EventArgs
         public TP.PointerType Type => InputConverter.Convert(m_Pointer.Type);
 
         public bool IsPrimary => m_Pointer.IsPrimary;
-        
+
         public PointerWrapper(IPointer pointer)
         {
             m_Pointer = pointer;

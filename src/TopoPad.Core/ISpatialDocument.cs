@@ -3,7 +3,6 @@
 // full text of the license.
 
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using TopoPad.Core.Layers;
 
 namespace TopoPad.Core

@@ -19,7 +19,8 @@ namespace TopoPad.Core
         }
 
         private Geometry m_Geometry;
-        public Geometry Geometry {
+        public Geometry Geometry
+        {
             get => m_Geometry;
             set
             {
@@ -29,6 +30,6 @@ namespace TopoPad.Core
                 }
             }
         }
-        
+
     }
 }

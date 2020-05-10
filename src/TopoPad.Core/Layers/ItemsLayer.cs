@@ -2,12 +2,12 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
-using Ardalis.GuardClauses;
-using NetTopologySuite.Geometries;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Ardalis.GuardClauses;
+using NetTopologySuite.Geometries;
 using TopoPad.Core.SpatialItems;
 using TopoPad.Core.Style;
 
@@ -36,7 +36,8 @@ namespace TopoPad.Core.Layers
         public ReadOnlyObservableCollection<ISpatialItem> Items { get; }
 
         private FeatureStyleSet m_FeatureStyleSet = new FeatureStyleSet();
-        public FeatureStyleSet FeatureStyleSet {
+        public FeatureStyleSet FeatureStyleSet
+        {
             get => m_FeatureStyleSet;
             set
             {

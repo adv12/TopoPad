@@ -15,7 +15,7 @@ namespace TopoPad.AvaloniaSceneInteraction.EventArgs
 
         public PointerWheelEventArgsWrapper(PointerWheelEventArgs e, IVisual visual) : base(e, visual)
         {
-            
+
         }
     }
 }

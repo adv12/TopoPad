@@ -2,8 +2,8 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
-using NetTopologySuite.Geometries;
 using System;
+using NetTopologySuite.Geometries;
 
 namespace TopoPad.Core.SpatialItems
 {
@@ -25,6 +25,6 @@ namespace TopoPad.Core.SpatialItems
 
         public Envelope Bounds => throw new NotImplementedException();
 
-        
+
     }
 }

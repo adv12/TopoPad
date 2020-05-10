@@ -3,7 +3,6 @@
 // full text of the license.
 
 using System;
-using System.Drawing;
 
 namespace TopoPad.Core
 {
@@ -205,7 +204,7 @@ namespace TopoPad.Core
             Value = value;
         }
 
-        public Rgba (byte grayscaleValue, byte a) : this(grayscaleValue, grayscaleValue, grayscaleValue, a)
+        public Rgba(byte grayscaleValue, byte a) : this(grayscaleValue, grayscaleValue, grayscaleValue, a)
         {
 
         }

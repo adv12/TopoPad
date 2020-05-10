@@ -3,8 +3,6 @@
 // full text of the license.
 
 using ReactiveUI;
-using TopoPad.AvaloniaSceneInteraction;
-using TopoPad.Core;
 using TopoPad.SceneInteraction;
 
 namespace TopoPad.ViewModels

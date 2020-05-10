@@ -3,11 +3,10 @@
 // full text of the license.
 
 using Ardalis.GuardClauses;
-using System.Drawing;
 
 namespace TopoPad.Core.Style
 {
-    public class FeatureStyleSet: StyleNotifier
+    public class FeatureStyleSet : StyleNotifier
     {
         private PointStyle m_PointStyle = new PointStyle();
         public PointStyle PointStyle

@@ -2,10 +2,10 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
-using NetTopologySuite.Geometries;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using NetTopologySuite.Geometries;
 using TopoPad.Core.Layers;
 
 namespace TopoPad.Core

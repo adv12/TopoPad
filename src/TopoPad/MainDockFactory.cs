@@ -5,12 +5,12 @@
 using System;
 using System.Collections.Generic;
 using Avalonia.Data;
-using TopoPad.ViewModels;
 using Dock.Avalonia.Controls;
 using Dock.Model;
 using Dock.Model.Controls;
 using TopoPad.Core;
 using TopoPad.Core.Layers;
+using TopoPad.ViewModels;
 
 namespace TopoPad
 {

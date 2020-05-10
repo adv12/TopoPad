@@ -2,13 +2,11 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
+using System;
+using System.Reactive;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.IO;
 using ReactiveUI;
-using System;
-using System.Collections.Generic;
-using System.Reactive;
-using System.Text;
 using TopoPad.Core;
 using TopoPad.Core.Layers;
 using TopoPad.SceneInteraction;

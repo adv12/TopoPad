@@ -3,9 +3,6 @@
 // full text of the license.
 
 using NetTopologySuite.Geometries;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TopoPad.Core
 {

@@ -2,7 +2,6 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using TopoPad.Core.SpatialItems;
@@ -10,7 +9,7 @@ using TopoPad.Core.Style;
 
 namespace TopoPad.Core.Layers
 {
-    public interface IItemsLayer: ILayer
+    public interface IItemsLayer : ILayer
     {
         ReadOnlyObservableCollection<ISpatialItem> Items { get; }
 

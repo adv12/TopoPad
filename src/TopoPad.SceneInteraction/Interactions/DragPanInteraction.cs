@@ -3,10 +3,6 @@
 // full text of the license.
 
 using NetTopologySuite.Geometries;
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
 using TopoPad.SceneInteraction.InputEvents;
 
 namespace TopoPad.SceneInteraction.Interactions

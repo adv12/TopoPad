@@ -14,7 +14,7 @@ namespace TopoPad.Core.Style
 
         protected bool SetNotifyUnregisterRegister<T>(ref T field, T value,
             [CallerMemberName] string propertyName = null)
-            where T: INotifyPropertyChanged
+            where T : INotifyPropertyChanged
         {
             T old = field;
             bool set = SetField(ref field, value, propertyName);

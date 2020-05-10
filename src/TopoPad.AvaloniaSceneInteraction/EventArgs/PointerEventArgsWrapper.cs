@@ -2,11 +2,11 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
+using System.Diagnostics.CodeAnalysis;
 using Ardalis.GuardClauses;
 using Avalonia.Input;
 using Avalonia.VisualTree;
 using NetTopologySuite.Geometries;
-using System.Diagnostics.CodeAnalysis;
 using TopoPad.SceneInteraction.InputEvents;
 using TP = TopoPad.SceneInteraction.InputEvents;
 

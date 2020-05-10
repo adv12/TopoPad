@@ -9,7 +9,7 @@ using TopoPad.Core;
 
 namespace TopoPad.ViewModels
 {
-    public class SceneControlDocumentViewModel: Document, ISpatialDocumentContainer
+    public class SceneControlDocumentViewModel : Document, ISpatialDocumentContainer
     {
         private ISpatialDocument m_Document;
         public ISpatialDocument Document
