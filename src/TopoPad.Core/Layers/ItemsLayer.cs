@@ -35,42 +35,14 @@ namespace TopoPad.Core.Layers
 
         public ReadOnlyObservableCollection<ISpatialItem> Items { get; }
 
-        private FeatureStyleSet m_FeatureStyleSet = new FeatureStyleSet();
-        public FeatureStyleSet FeatureStyleSet
+        private ItemsLayerStyleSpec m_StyleSpec = new ItemsLayerStyleSpec();
+        public ItemsLayerStyleSpec StyleSpec
         {
-            get => m_FeatureStyleSet;
+            get => m_StyleSpec;
             set
             {
                 Guard.Against.Null(value, nameof(value));
-                if (SetField(ref m_FeatureStyleSet, value))
-                {
-                    FireStyleChanged();
-                }
-            }
-        }
-
-        private FeatureStyleSet m_SelectedFeatureStyleSet = new FeatureStyleSet();
-        public FeatureStyleSet SelectedFeatureStyleSet
-        {
-            get => m_SelectedFeatureStyleSet;
-            set
-            {
-                Guard.Against.Null(value, nameof(value));
-                if (SetField(ref m_SelectedFeatureStyleSet, value))
-                {
-                    FireStyleChanged();
-                }
-            }
-        }
-
-        private FeatureStyleSet m_ActiveFeatureStyleSet = new FeatureStyleSet();
-        public FeatureStyleSet ActiveFeatureStyleSet
-        {
-            get => m_ActiveFeatureStyleSet;
-            set
-            {
-                Guard.Against.Null(value, nameof(value));
-                if (SetField(ref m_ActiveFeatureStyleSet, value))
+                if (SetField(ref m_StyleSpec, value))
                 {
                     FireStyleChanged();
                 }
@@ -93,15 +65,15 @@ namespace TopoPad.Core.Layers
             {
                 if (item is Feature feature)
                 {
-                    FeatureStyleSet featureStyleSet = FeatureStyleSet;
+                    FeatureStyleSet featureStyleSet = StyleSpec?.FeatureStyleSet;
 
                     if (IsItemActive(feature))
                     {
-                        featureStyleSet = ActiveFeatureStyleSet;
+                        featureStyleSet = StyleSpec?.ActiveFeatureStyleSet;
                     }
                     else if (IsItemSelected(feature))
                     {
-                        featureStyleSet = SelectedFeatureStyleSet;
+                        featureStyleSet = StyleSpec?.SelectedFeatureStyleSet;
                     }
                     RenderGeometry(renderContext, featureStyleSet, feature.Geometry, fast);
                 }

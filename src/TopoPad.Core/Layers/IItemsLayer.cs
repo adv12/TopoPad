@@ -13,11 +13,7 @@ namespace TopoPad.Core.Layers
     {
         ReadOnlyObservableCollection<ISpatialItem> Items { get; }
 
-        FeatureStyleSet FeatureStyleSet { get; set; }
-
-        FeatureStyleSet SelectedFeatureStyleSet { get; set; }
-
-        FeatureStyleSet ActiveFeatureStyleSet { get; set; }
+        ItemsLayerStyleSpec StyleSpec { get; set; }
 
         void AddItem(ISpatialItem item);
 

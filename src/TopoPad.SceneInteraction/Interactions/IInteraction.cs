@@ -17,5 +17,9 @@ namespace TopoPad.SceneInteraction.Interactions
         void OnPointerReleased(IPointerReleasedEventArgs e);
 
         void OnPointerWheelChanged(IPointerWheelEventArgs e);
+
+        void OnKeyDown(IKeyEventArgs e);
+
+        void OnKeyUp(IKeyEventArgs e);
     }
 }

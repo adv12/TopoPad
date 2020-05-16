@@ -29,5 +29,15 @@ namespace TopoPad.SceneInteraction.Interactions
         {
 
         }
+
+        public virtual void OnKeyDown(IKeyEventArgs e)
+        {
+
+        }
+
+        public virtual void OnKeyUp(IKeyEventArgs e)
+        {
+
+        }
     }
 }

@@ -2,6 +2,7 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
+using Ardalis.GuardClauses;
 using NetTopologySuite.Geometries;
 using TopoPad.SceneInteraction.InputEvents;
 
@@ -25,10 +26,12 @@ namespace TopoPad.SceneInteraction.Interactions
 
         public override void OnPointerMoved(IPointerEventArgs e)
         {
+            Guard.Against.Null(Scene, nameof(Scene));
             Coordinate pos = e.Position;
             if (m_Dragging && e.CurrentPoint.Properties.IsLeftButtonPressed)
             {
-                Scene.PanView(pos.X - m_LastViewPosition.X, pos.Y - m_LastViewPosition.Y);
+                Scene.PanView((m_LastViewPosition.X - pos.X) * Scene.XMultiplier,
+                    (m_LastViewPosition.Y - pos.Y) * Scene.YMultiplier);
                 e.Handled = true;
             }
             else

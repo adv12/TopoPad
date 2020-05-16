@@ -51,5 +51,15 @@ namespace TopoPad.SceneInteraction
         {
             ApplyToInteractions(i => i.OnPointerWheelChanged(e), e);
         }
+
+        void OnKeyDown(IKeyEventArgs e)
+        {
+            ApplyToInteractions(i => i.OnKeyDown(e), e);
+        }
+
+        void OnKeyUp(IKeyEventArgs e)
+        {
+            ApplyToInteractions(i => i.OnKeyUp(e), e);
+        }
     }
 }

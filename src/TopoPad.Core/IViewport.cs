@@ -16,7 +16,19 @@ namespace TopoPad.Core
 
         double Height { get; }
 
+        double WorldWidth => Width / Scale;
+
+        double WorldHeight => Height / Scale;
+
         double Scale { get; set; }
+
+        bool InvertX { get; }
+
+        bool InvertY { get; }
+
+        int XMultiplier => InvertX ? -1 : 1;
+
+        int YMultiplier => InvertY ? -1 : 1;
 
         double CenterX { get; set; }
 
@@ -151,19 +163,19 @@ namespace TopoPad.Core
             CenterY = y;
         }
 
-        void PanView(double viewX, double viewY)
+        void PanView(double viewRight, double viewUp)
         {
-            Coordinate c = new Coordinate();
-            WorldToViewTransform.Transform(Center, c);
-            c.X -= viewX;
-            c.Y -= viewY;
-            ViewToWorldTransform.Transform(c, c);
-            CenterOn(c);
+            Pan(viewRight / Scale, viewUp / Scale);
         }
 
-        void PanViewFraction(double viewFractionX, double viewFractionY)
+        void Pan(double worldX, double worldY)
         {
-            PanView(Width * viewFractionX, Height * viewFractionY);
+            CenterOn(CenterX + worldX, CenterY + worldY);
+        }
+
+        void PanFraction(double worldFractionX, double worldFractionY)
+        {
+            Pan(WorldWidth * worldFractionX, WorldHeight * worldFractionY);
         }
     }
 }

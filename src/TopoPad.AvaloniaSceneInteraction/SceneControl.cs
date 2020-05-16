@@ -61,6 +61,12 @@ namespace TopoPad.AvaloniaSceneInteraction
             }
         }
 
+        protected override void OnPointerEnter(PointerEventArgs e)
+        {
+            this.Focus();
+            base.OnPointerEnter(e);
+        }
+
         protected override void OnPointerMoved(PointerEventArgs e)
         {
             Scene?.OnPointerMoved(new PointerEventArgsWrapper(e, this));
@@ -94,6 +100,24 @@ namespace TopoPad.AvaloniaSceneInteraction
             if (!e.Handled)
             {
                 base.OnPointerWheelChanged(e);
+            }
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            Scene?.OnKeyDown(new KeyEventArgsWrapper(e));
+            if (!e.Handled)
+            {
+                base.OnKeyDown(e);
+            }
+        }
+
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            Scene?.OnKeyUp(new KeyEventArgsWrapper(e));
+            if (!e.Handled)
+            {
+                base.OnKeyUp(e);
             }
         }
     }

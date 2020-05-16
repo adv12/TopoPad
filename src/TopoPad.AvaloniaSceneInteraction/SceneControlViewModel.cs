@@ -122,6 +122,10 @@ namespace TopoPad.AvaloniaSceneInteraction
             }
         }
 
+        public bool InvertX => false;
+
+        public bool InvertY => true;
+
         private double m_CenterX;
         public double CenterX
         {
@@ -201,6 +205,7 @@ namespace TopoPad.AvaloniaSceneInteraction
         public SceneControlViewModel()
         {
             PushInteraction(new PointerWheelZoomInteraction());
+            PushInteraction(new ArrowKeyPanInteraction());
             PushInteraction(new DragPanInteraction());
         }
 
