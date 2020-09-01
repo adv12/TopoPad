@@ -70,7 +70,7 @@ namespace TopoPad.AvaloniaSceneInteraction
             }
         }
 
-        public void DrawImage(IImage image, int sourceX, int sourceY, int sourceWidth, int sourceHeight, int level,
+        public void DrawImage(TopoPad.Core.IImage image, int sourceX, int sourceY, int sourceWidth, int sourceHeight, int level,
             Envelope bounds, bool fast)
         {
 

@@ -20,15 +20,15 @@ namespace TopoPad
 
         public override void OnFrameworkInitializationCompleted()
         {
-            var factory = new MainDockFactory(null);
+            var mainWindowViewModel = new MainWindowViewModel();
+            mainWindowViewModel.NewDocument();
+
+            var factory = new MainDockFactory(mainWindowViewModel);
             var layout = factory.CreateLayout();
             factory.InitLayout(layout);
 
-            var mainWindowViewModel = new MainWindowViewModel()
-            {
-                Factory = factory,
-                Layout = layout
-            };
+            mainWindowViewModel.Factory = factory;
+            mainWindowViewModel.Layout = layout;
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
             {

@@ -37,6 +37,7 @@ namespace TopoPad.Core
         public SpatialDocument() : base()
         {
             Name = "Document";
+            OverrideItemsStyleSpec = new Style.ItemsStyleSpec();
         }
 
     }

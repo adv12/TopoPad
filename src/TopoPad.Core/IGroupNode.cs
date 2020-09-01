@@ -3,10 +3,14 @@
 // full text of the license.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Transactions;
 using NetTopologySuite.Geometries;
 using TopoPad.Core.Layers;
+using TopoPad.Core.Style;
 
 namespace TopoPad.Core
 {
@@ -36,7 +40,24 @@ namespace TopoPad.Core
 
         bool FeaturesEditable { get; set; }
 
-        Coordinate GetSnapPoint(Coordinate input);
+        ItemsStyleSpec ItemsStyleSpec => OverrideItemsStyleSpec ?? ParentNode.ItemsStyleSpec;
+
+        ItemsStyleSpec OverrideItemsStyleSpec { get; set; }
+
+    Coordinate GetSnapPoint(Coordinate input);
+
+        IGroupNode RootNode
+        {
+            get
+            {
+                IGroupNode current = this;
+                while (current.ParentNode != null)
+                {
+                    current = current.ParentNode;
+                }
+                return current;
+            }
+        }
 
         IGroup ParentNode { get; set; }
 
@@ -54,6 +75,8 @@ namespace TopoPad.Core
                 return i;
             }
         }
+
+        IReadOnlyList<IGroupNode> ChildNodesReversed { get; }
 
         ReadOnlyObservableCollection<IGroupNode> ChildNodes { get; }
 

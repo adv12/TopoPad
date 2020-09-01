@@ -122,9 +122,9 @@ namespace TopoPad.AvaloniaSceneInteraction
             }
         }
 
-        public bool InvertX => false;
+        public bool FlipX => false;
 
-        public bool InvertY => true;
+        public bool FlipY => true;
 
         private double m_CenterX;
         public double CenterX

@@ -34,17 +34,10 @@ full text of the license.
         <Border BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=#LayersTreeView.BorderBrush}" BorderThickness="1">
             <StackPanel>
                 <TreeView Name="LayersTreeView" DataContext="{Binding SceneViewModel.Scene.Document}"
-                          Items="{Binding ChildNodes}" SelectedItems="{Binding SelectedNodes}"
-                          SelectedItem="{Binding SelectedNode}" BorderThickness="0">
-                    <TreeView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <DockPanel>
-                                <Border Height="0"/>
-                            </DockPanel>
-                        </ItemsPanelTemplate>
-                    </TreeView.ItemsPanel>
+                          Items="{Binding ChildNodesReversed}" SelectedItems="{Binding SelectedNodes}"
+                          SelectedItem="{Binding SelectedNode}" BorderThickness="0" SelectionMode="Multiple">
                     <TreeView.DataTemplates>
-                        <TreeDataTemplate DataType="tpc:IGroup" ItemsSource="{Binding ChildNodes}">
+                        <TreeDataTemplate DataType="tpc:IGroup" ItemsSource="{Binding ChildNodesReversed}">
                             <StackPanel DockPanel.Dock="Bottom" Name="GroupNameStackPanel" Orientation="Horizontal">
                                 <CheckBox IsChecked="{Binding Visible}" Margin="0,5,5,5"/>
                                 <tpv:FolderIcon Width="24" Height="24" Margin="0,5,5,5"/>

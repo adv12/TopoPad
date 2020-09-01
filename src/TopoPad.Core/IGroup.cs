@@ -3,6 +3,7 @@
 // full text of the license.
 
 using TopoPad.Core.Layers;
+using TopoPad.Core.Style;
 
 namespace TopoPad.Core
 {

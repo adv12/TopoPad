@@ -8,34 +8,27 @@ using Avalonia.Data;
 using Dock.Avalonia.Controls;
 using Dock.Model;
 using Dock.Model.Controls;
-using TopoPad.Core;
-using TopoPad.Core.Layers;
 using TopoPad.ViewModels;
 
 namespace TopoPad
 {
     public class MainDockFactory : Factory
     {
-        private object m_Context;
+        private MainWindowViewModel m_ViewModel;
 
-        public MainDockFactory(object context)
+        public MainDockFactory(MainWindowViewModel viewModel)
         {
-            m_Context = context;
+            m_ViewModel = viewModel;
         }
 
         public override IDock CreateLayout()
         {
-            SpatialDocument document = new SpatialDocument();
-            ILayer layer = document.AddItemsLayer();
-            document.SelectedNode = layer;
-            layer.Name = "WKT Geometries";
-
             var documentViewModel = new SceneControlDocumentViewModel()
             {
-                Id = "Document1",
-                Title = "Document 1"
+                Id = "Viewport",
+                Title = "Viewport"
             };
-            documentViewModel.SceneControlViewModel.Document = document;
+            documentViewModel.SceneControlViewModel.Document = m_ViewModel.Document;
 
             var layersToolViewModel = new LayersViewModel()
             {
@@ -182,36 +175,36 @@ namespace TopoPad
         {
             this.ContextLocator = new Dictionary<string, Func<object>>
             {
-                [nameof(IRootDock)] = () => m_Context,
-                [nameof(IPinDock)] = () => m_Context,
-                [nameof(IProportionalDock)] = () => m_Context,
-                [nameof(IDocumentDock)] = () => m_Context,
-                [nameof(IToolDock)] = () => m_Context,
-                [nameof(ISplitterDock)] = () => m_Context,
-                [nameof(IDockWindow)] = () => m_Context,
-                [nameof(IDocument)] = () => m_Context,
-                [nameof(ITool)] = () => m_Context,
-                ["Document1"] = () => m_Context,
-                ["Layers"] = () => m_Context,
-                ["EditLayer"] = () => m_Context,
-                ["AddGeometry"] = () => m_Context,
-                ["LeftPane"] = () => m_Context,
-                ["LeftPaneTop"] = () => m_Context,
-                ["LeftPaneTopSplitter"] = () => m_Context,
-                ["LeftPaneBottom"] = () => m_Context,
-                ["CenterPane"] = () => m_Context,
-                ["CenterPaneSplitter"] = () => m_Context,
-                ["CenterPaneBottom"] = () => m_Context,
-                ["RightPane"] = () => m_Context,
-                ["RightPaneTop"] = () => m_Context,
-                ["RightPaneTopSplitter"] = () => m_Context,
-                ["RightPaneBottom"] = () => m_Context,
-                ["DocumentsPane"] = () => m_Context,
-                ["MainLayout"] = () => m_Context,
-                ["LeftSplitter"] = () => m_Context,
-                ["RightSplitter"] = () => m_Context,
-                ["MainLayout"] = () => m_Context,
-                ["Main"] = () => m_Context,
+                [nameof(IRootDock)] = () => m_ViewModel,
+                [nameof(IPinDock)] = () => m_ViewModel,
+                [nameof(IProportionalDock)] = () => m_ViewModel,
+                [nameof(IDocumentDock)] = () => m_ViewModel,
+                [nameof(IToolDock)] = () => m_ViewModel,
+                [nameof(ISplitterDock)] = () => m_ViewModel,
+                [nameof(IDockWindow)] = () => m_ViewModel,
+                [nameof(IDocument)] = () => m_ViewModel,
+                [nameof(ITool)] = () => m_ViewModel,
+                ["Viewport"] = () => m_ViewModel,
+                ["Layers"] = () => m_ViewModel,
+                ["EditLayer"] = () => m_ViewModel,
+                ["AddGeometry"] = () => m_ViewModel,
+                ["LeftPane"] = () => m_ViewModel,
+                ["LeftPaneTop"] = () => m_ViewModel,
+                ["LeftPaneTopSplitter"] = () => m_ViewModel,
+                ["LeftPaneBottom"] = () => m_ViewModel,
+                ["CenterPane"] = () => m_ViewModel,
+                ["CenterPaneSplitter"] = () => m_ViewModel,
+                ["CenterPaneBottom"] = () => m_ViewModel,
+                ["RightPane"] = () => m_ViewModel,
+                ["RightPaneTop"] = () => m_ViewModel,
+                ["RightPaneTopSplitter"] = () => m_ViewModel,
+                ["RightPaneBottom"] = () => m_ViewModel,
+                ["DocumentsPane"] = () => m_ViewModel,
+                ["MainLayout"] = () => m_ViewModel,
+                ["LeftSplitter"] = () => m_ViewModel,
+                ["RightSplitter"] = () => m_ViewModel,
+                ["MainLayout"] = () => m_ViewModel,
+                ["Main"] = () => m_ViewModel,
             };
 
             this.HostWindowLocator = new Dictionary<string, Func<IHostWindow>>

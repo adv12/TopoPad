@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using Ardalis.GuardClauses;
 using NetTopologySuite.Geometries;
 using TopoPad.Core.Layers;
+using TopoPad.Core.Style;
 
 namespace TopoPad.Core
 {
@@ -79,8 +80,29 @@ namespace TopoPad.Core
         public virtual bool ItemsMovable { get; set; } = true;
         public virtual bool FeaturesEditable { get; set; } = true;
 
-        private IGroup m_ParentNode;
+        private ItemsStyleSpec m_LocalItemsStyleSpec;
+        public ItemsStyleSpec OverrideItemsStyleSpec
+        {
+            get => m_LocalItemsStyleSpec;
+            set
+            {
+                Guard.Against.Null(value, nameof(value));
+                if (SetField(ref m_LocalItemsStyleSpec, value))
+                {
+                    List<IItemsLayer> itemsLayers = new List<IItemsLayer>();
+                    GetItemsLayers(this, itemsLayers);
+                    foreach (IItemsLayer layer in itemsLayers)
+                    {
+                        if (layer == this || layer.OverrideItemsStyleSpec == null)
+                        {
+                            OnLayerStyleChanged(new LayerChangedEventArgs(layer));
+                        }
+                    }
+                }
+            }
+        }
 
+        private IGroup m_ParentNode;
         public IGroup ParentNode
         {
             get
@@ -103,6 +125,8 @@ namespace TopoPad.Core
         }
 
         public abstract ReadOnlyObservableCollection<IGroupNode> ChildNodes { get; }
+
+        public abstract IReadOnlyList<IGroupNode> ChildNodesReversed { get; }
 
         public Coordinate GetSnapPoint(Coordinate input)
         {
@@ -127,6 +151,21 @@ namespace TopoPad.Core
             foreach (IGroupNode child in node.ChildNodes)
             {
                 GetNodeNames(names, child);
+            }
+        }
+
+        private void GetItemsLayers(IGroupNode groupNode, List<IItemsLayer> layers)
+        {
+            if (groupNode is IItemsLayer layer)
+            {
+                layers.Add(layer);
+            }
+            else
+            {
+                foreach (IGroupNode child in  groupNode.ChildNodes)
+                {
+                    GetItemsLayers(child, layers);
+                }
             }
         }
 

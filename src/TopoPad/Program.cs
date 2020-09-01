@@ -3,7 +3,6 @@
 // full text of the license.
 
 using Avalonia;
-using Avalonia.Logging.Serilog;
 using Avalonia.ReactiveUI;
 
 namespace TopoPad

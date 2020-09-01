@@ -22,13 +22,13 @@ namespace TopoPad.Core
 
         double Scale { get; set; }
 
-        bool InvertX { get; }
+        bool FlipX { get; }
 
-        bool InvertY { get; }
+        bool FlipY { get; }
 
-        int XMultiplier => InvertX ? -1 : 1;
+        int XMultiplier => FlipX ? -1 : 1;
 
-        int YMultiplier => InvertY ? -1 : 1;
+        int YMultiplier => FlipY ? -1 : 1;
 
         double CenterX { get; set; }
 

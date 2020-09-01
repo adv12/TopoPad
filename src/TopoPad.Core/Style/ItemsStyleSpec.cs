@@ -6,7 +6,7 @@ using Ardalis.GuardClauses;
 
 namespace TopoPad.Core.Style
 {
-    public class ItemsLayerStyleSpec : StyleNotifier
+    public class ItemsStyleSpec : StyleNotifier
     {
         private FeatureStyleSet m_FeatureStyleSet = new FeatureStyleSet();
         public FeatureStyleSet FeatureStyleSet

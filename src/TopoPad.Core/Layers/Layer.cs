@@ -15,6 +15,10 @@ namespace TopoPad.Core.Layers
 
         public override ReadOnlyObservableCollection<IGroupNode> ChildNodes => m_ReadOnlyChildNodes;
 
+        private ReadOnlyObservableCollectionReverser<IGroupNode> m_ChildNodesReversed;
+        public override IReadOnlyList<IGroupNode> ChildNodesReversed => m_ChildNodesReversed ??
+            (m_ChildNodesReversed = new ReadOnlyObservableCollectionReverser<IGroupNode>(m_ChildNodes));
+
         private bool m_Selected;
         public bool Selected
         {

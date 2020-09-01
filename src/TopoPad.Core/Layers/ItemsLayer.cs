@@ -35,8 +35,8 @@ namespace TopoPad.Core.Layers
 
         public ReadOnlyObservableCollection<ISpatialItem> Items { get; }
 
-        private ItemsLayerStyleSpec m_StyleSpec = new ItemsLayerStyleSpec();
-        public ItemsLayerStyleSpec StyleSpec
+        private ItemsStyleSpec m_StyleSpec = new ItemsStyleSpec();
+        public ItemsStyleSpec StyleSpec
         {
             get => m_StyleSpec;
             set
