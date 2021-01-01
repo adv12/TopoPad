@@ -26,7 +26,20 @@ namespace TopoPad.AvaloniaSceneInteraction.EventArgs
 
         public static TP.PointerUpdateKind Convert(PointerUpdateKind value)
         {
-            return (TP.PointerUpdateKind)value;
+            return value switch
+            {
+                PointerUpdateKind.LeftButtonPressed => TP.PointerUpdateKind.LeftButtonPressed,
+                PointerUpdateKind.LeftButtonReleased => TP.PointerUpdateKind.LeftButtonReleased,
+                PointerUpdateKind.MiddleButtonPressed => TP.PointerUpdateKind.MiddleButtonPressed,
+                PointerUpdateKind.MiddleButtonReleased => TP.PointerUpdateKind.MiddleButtonReleased,
+                PointerUpdateKind.RightButtonPressed => TP.PointerUpdateKind.RightButtonPressed,
+                PointerUpdateKind.RightButtonReleased => TP.PointerUpdateKind.RightButtonReleased,
+                PointerUpdateKind.XButton1Pressed => TP.PointerUpdateKind.XButton1Pressed,
+                PointerUpdateKind.XButton1Released => TP.PointerUpdateKind.XButton1Released,
+                PointerUpdateKind.XButton2Pressed => TP.PointerUpdateKind.XButton2Pressed,
+                PointerUpdateKind.XButton2Released => TP.PointerUpdateKind.XButton2Released,
+                _ => TP.PointerUpdateKind.Other
+            };
         }
 
         public static TP.Key Convert(Key value)

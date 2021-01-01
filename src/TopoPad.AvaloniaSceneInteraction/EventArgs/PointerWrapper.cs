@@ -2,6 +2,7 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
+using Ardalis.GuardClauses;
 using Avalonia.Input;
 using TP = TopoPad.SceneInteraction.InputEvents;
 
@@ -19,7 +20,22 @@ namespace TopoPad.AvaloniaSceneInteraction.EventArgs
 
         public PointerWrapper(IPointer pointer)
         {
+            Guard.Against.Null(pointer, nameof(pointer));
             m_Pointer = pointer;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj switch
+            {
+                PointerWrapper that => this.m_Pointer == that.m_Pointer,
+                _ => false
+            };
+        }
+
+        public override int GetHashCode()
+        {
+            return m_Pointer.GetHashCode();
         }
     }
 }

@@ -2,6 +2,7 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
+using Ardalis.GuardClauses;
 using Avalonia.Input;
 using NetTopologySuite.Geometries;
 using TP = TopoPad.SceneInteraction.InputEvents;
@@ -35,9 +36,33 @@ namespace TopoPad.AvaloniaSceneInteraction.EventArgs
 
         public PointerPointWrapper(PointerPoint p)
         {
+            Guard.Against.Null(p, nameof(p));
             P = p;
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj switch
+            {
+                PointerPointWrapper that => this.P == that.P,
+                _ => false
+            };
+        }
+
+        public override int GetHashCode()
+        {
+            return P.GetHashCode();
+        }
+
+        public static bool operator ==(PointerPointWrapper p1, PointerPointWrapper p2)
+        {
+            return p1.Equals(p2);
+        }
+
+        public static bool operator !=(PointerPointWrapper p1, PointerPointWrapper p2)
+        {
+            return !p1.Equals(p2);
+        }
 
     }
 }

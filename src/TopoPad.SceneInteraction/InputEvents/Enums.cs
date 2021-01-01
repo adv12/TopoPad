@@ -35,9 +35,13 @@ namespace TopoPad.SceneInteraction.InputEvents
         LeftButtonPressed,
         MiddleButtonPressed,
         RightButtonPressed,
+        XButton1Pressed,
+        XButton2Pressed,
         LeftButtonReleased,
         MiddleButtonReleased,
         RightButtonReleased,
+        XButton1Released,
+        XButton2Released,
         Other
     }
 

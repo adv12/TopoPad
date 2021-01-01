@@ -207,6 +207,7 @@ namespace TopoPad.AvaloniaSceneInteraction
             PushInteraction(new PointerWheelZoomInteraction());
             PushInteraction(new ArrowKeyPanInteraction());
             PushInteraction(new DragPanInteraction());
+            PushInteraction(new ClickSelectInteraction());
         }
 
         private void ViewChanged()
@@ -242,8 +243,9 @@ namespace TopoPad.AvaloniaSceneInteraction
             IInteraction interaction = null;
             if (m_Interactions.Count > 0)
             {
-                interaction = m_Interactions[0];
-                m_Interactions.RemoveAt(0);
+                int index = m_Interactions.Count - 1;
+                interaction = m_Interactions[index];
+                m_Interactions.RemoveAt(index);
                 interaction.Scene = null;
             }
             return interaction;

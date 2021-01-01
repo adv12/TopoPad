@@ -2,12 +2,10 @@
 // See license.txt in the TopoPad distribution or repository for the
 // full text of the license.
 
-using NetTopologySuite.Geometries;
-
-namespace TopoPad.Core.SpatialItems
+namespace TopoPad.Core
 {
-    public interface ISpatialItem : IBoundedItem
+    public interface ITranslatable
     {
-
+        public void Translate(double x, double y);
     }
 }

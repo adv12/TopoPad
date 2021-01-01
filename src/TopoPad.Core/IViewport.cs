@@ -111,6 +111,22 @@ namespace TopoPad.Core
             return worldEnvelope;
         }
 
+        Coordinate ViewToWorld(Coordinate viewCoord)
+        {
+            Guard.Against.Null(viewCoord, nameof(viewCoord));
+            AffineTransformation transform = ViewToWorldTransform;
+            Coordinate worldCoord = new Coordinate();
+            return transform.Transform(viewCoord, worldCoord);
+        }
+
+        Coordinate WorldToView(Coordinate worldCoord)
+        {
+            Guard.Against.Null(worldCoord, nameof(worldCoord));
+            AffineTransformation transform = ViewToWorldTransform;
+            Coordinate viewCoord = new Coordinate();
+            return transform.Transform(worldCoord, viewCoord);
+        }
+
         void Fit(IBoundedItem item, double paddingFraction = 0)
         {
             Fit(item?.Bounds, paddingFraction);

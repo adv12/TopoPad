@@ -25,6 +25,5 @@ namespace TopoPad.Core.SpatialItems
 
         public Envelope Bounds => throw new NotImplementedException();
 
-
     }
 }

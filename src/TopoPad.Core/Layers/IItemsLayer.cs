@@ -18,13 +18,9 @@ namespace TopoPad.Core.Layers
 
         void SelectItems(IEnumerable<ISpatialItem> items);
 
-        void SelectAll();
-
         void DeselectItem(ISpatialItem item);
 
         void DeselectItems(IEnumerable<ISpatialItem> items);
-
-        void DeselectAll();
 
         bool IsItemSelected(ISpatialItem item);
 
@@ -32,13 +28,9 @@ namespace TopoPad.Core.Layers
 
         void ActivateItems(IEnumerable<ISpatialItem> items);
 
-        void ActivateAll();
-
         void DeactivateItem(ISpatialItem item);
 
         void DeactivateItems(IEnumerable<ISpatialItem> items);
-
-        void DeactivateAll();
 
         bool IsItemActive(ISpatialItem item);
     }

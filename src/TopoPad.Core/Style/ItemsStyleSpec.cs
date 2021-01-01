@@ -40,5 +40,25 @@ namespace TopoPad.Core.Style
                 SetNotifyUnregisterRegister(ref m_ActiveFeatureStyleSet, value);
             }
         }
+
+        public ItemsStyleSpec()
+        {
+            m_FeatureStyleSet.PointStyle.Shape = PointShape.Circle;
+            m_FeatureStyleSet.PointStyle.Size = 9;
+
+            m_SelectedFeatureStyleSet.PointStyle.Shape = PointShape.Circle;
+            m_SelectedFeatureStyleSet.PointStyle.Size = 9;
+            m_SelectedFeatureStyleSet.PointStyle.LineStyle.Color = Rgba.Cyan;
+            m_SelectedFeatureStyleSet.LineStyle.Color = Rgba.Cyan;
+            m_SelectedFeatureStyleSet.LineStyle.Width = 3;
+            m_SelectedFeatureStyleSet.VertexStyle.LineStyle.Color = Rgba.Cyan;
+
+            m_ActiveFeatureStyleSet.PointStyle.Shape = PointShape.Circle;
+            m_ActiveFeatureStyleSet.PointStyle.Size = 9;
+            m_ActiveFeatureStyleSet.VertexStyle.Size = 9;
+            m_ActiveFeatureStyleSet.VertexStyle.FillStyle.Color = Rgba.White;
+            m_ActiveFeatureStyleSet.VertexStyle.LineStyle.Type = LineType.Solid;
+            m_ActiveFeatureStyleSet.VertexStyle.LineStyle.Color = Rgba.Black;
+        }
     }
 }

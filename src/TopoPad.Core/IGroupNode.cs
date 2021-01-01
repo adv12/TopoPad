@@ -3,13 +3,13 @@
 // full text of the license.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Transactions;
 using NetTopologySuite.Geometries;
+using TopoPad.Core.HitTest;
 using TopoPad.Core.Layers;
+using TopoPad.Core.SpatialItems;
 using TopoPad.Core.Style;
 
 namespace TopoPad.Core
@@ -96,6 +96,48 @@ namespace TopoPad.Core
                 }
             }
             return null;
+        }
+
+        void HitTest(double x, double y, double viewBoundaryBuffer,
+            double viewToWorld, ItemsHitTestSpec spec,
+            Dictionary<ISpatialItem, IItemsLayer> hits)
+        {
+            foreach (IGroupNode node in ChildNodesReversed)
+            {
+                node.HitTest(x, y, viewBoundaryBuffer, viewToWorld, spec, hits);
+            }
+        }
+
+        void SelectAll()
+        {
+            foreach (IGroupNode node in ChildNodesReversed)
+            {
+                node.SelectAll();
+            }
+        }
+
+        void DeselectAll()
+        {
+            foreach (IGroupNode node in ChildNodesReversed)
+            {
+                node.DeselectAll();
+            }
+        }
+
+        void ActivateAll()
+        {
+            foreach (IGroupNode node in ChildNodesReversed)
+            {
+                node.ActivateAll();
+            }
+        }
+
+        void DeactivateAll()
+        {
+            foreach (IGroupNode node in ChildNodesReversed)
+            {
+                node.DeactivateAll();
+            }
         }
     }
 }

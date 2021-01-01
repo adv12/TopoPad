@@ -5,9 +5,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Ardalis.GuardClauses;
 using NetTopologySuite.Geometries;
+using TopoPad.Core.HitTest;
 using TopoPad.Core.SpatialItems;
 using TopoPad.Core.Style;
 
@@ -16,6 +18,10 @@ namespace TopoPad.Core.Layers
     public class ItemsLayer : Layer, IItemsLayer
     {
         private readonly ObservableCollection<ISpatialItem> m_Items = new ObservableCollection<ISpatialItem>();
+
+        private HashSet<ISpatialItem> m_SelectedItems = new HashSet<ISpatialItem>();
+
+        private HashSet<ISpatialItem> m_ActiveItems = new HashSet<ISpatialItem>();
 
         public override Envelope Bounds
         {
@@ -111,72 +117,221 @@ namespace TopoPad.Core.Layers
 
         public void SelectItem(ISpatialItem item)
         {
-            throw new System.NotImplementedException();
+            m_SelectedItems.Add(item);
+            FireSelectionChanged();
         }
 
         public void SelectItems(IEnumerable<ISpatialItem> items)
         {
-            throw new System.NotImplementedException();
+            foreach (ISpatialItem item in items)
+            {
+                SelectItem(item);
+            }
         }
 
         public void SelectAll()
         {
-            throw new System.NotImplementedException();
+            SelectItems(Items);
+            FireSelectionChanged();
         }
 
         public void DeselectItem(ISpatialItem item)
         {
-            throw new System.NotImplementedException();
+            DeactivateItem(item);
+            m_SelectedItems.Remove(item);
+            FireSelectionChanged();
         }
 
         public void DeselectItems(IEnumerable<ISpatialItem> items)
         {
-            throw new System.NotImplementedException();
+            foreach (ISpatialItem item in items)
+            {
+                DeselectItem(item);
+            }
+            FireSelectionChanged();
         }
 
         public void DeselectAll()
         {
-            throw new System.NotImplementedException();
+            m_ActiveItems.Clear();
+            m_SelectedItems.Clear();
+            FireSelectionChanged();
         }
 
         public bool IsItemSelected(ISpatialItem item)
         {
-            return false;
+            return m_SelectedItems.Contains(item);
         }
 
         public void ActivateItem(ISpatialItem item)
         {
-            throw new System.NotImplementedException();
+            SelectItem(item);
+            m_ActiveItems.Add(item);
+            FireSelectionChanged();
         }
 
         public void ActivateItems(IEnumerable<ISpatialItem> items)
         {
-            throw new System.NotImplementedException();
+            foreach (ISpatialItem item in items)
+            {
+                ActivateItem(item);
+            }
+            FireSelectionChanged();
         }
 
         public void ActivateAll()
         {
-            throw new System.NotImplementedException();
+            ActivateItems(Items);
+            FireSelectionChanged();
         }
 
         public void DeactivateItem(ISpatialItem item)
         {
-            throw new System.NotImplementedException();
+            m_ActiveItems.Remove(item);
+            FireSelectionChanged();
         }
 
         public void DeactivateItems(IEnumerable<ISpatialItem> items)
         {
-            throw new System.NotImplementedException();
+            foreach (ISpatialItem item in items)
+            {
+                DeactivateItem(item);
+            }
+            FireSelectionChanged();
         }
 
         public void DeactivateAll()
         {
-            throw new System.NotImplementedException();
+            m_ActiveItems.Clear();
+            FireSelectionChanged();
         }
 
         public bool IsItemActive(ISpatialItem item)
         {
-            return false;
+            return m_ActiveItems.Contains(item);
+        }
+
+        public void HitTest(double x, double y, double viewBoundaryBuffer,
+            double viewToWorld, ItemsHitTestSpec spec,
+            Dictionary<ISpatialItem, IItemsLayer> hits)
+        {
+            if (spec.LimitLayers && !spec.Layers.Contains(this))
+            {
+                return;
+            }
+            IEnumerable<ISpatialItem> items = this.Items;
+            if (spec.TopmostOnly)
+            {
+                if (hits.Any())
+                {
+                    return;
+                }
+                items = items.Reverse();
+            }
+            foreach (ISpatialItem item in items)
+            {
+                if (item is Feature)
+                {
+                    if (HitTestFeature((Feature)item, x, y, viewBoundaryBuffer,
+                        viewToWorld, spec))
+                    {
+                        hits[item] = this;
+                    }
+                }
+                else if (item is ImageItem)
+                {
+                    if (item.Bounds.Contains(x, y))
+                    {
+                        hits[item] = this;
+                    }
+                }
+                if (spec.TopmostOnly && hits.Any())
+                {
+                    return;
+                }
+            }
+        }
+
+        private bool HitTestFeature(Feature f, double x, double y, double viewBoundaryBuffer,
+            double viewToWorld, ItemsHitTestSpec spec)
+        {
+            FeatureStyleSet styleSet =
+                IsItemActive(f) ? StyleSpec.ActiveFeatureStyleSet :
+                IsItemSelected(f) ? StyleSpec.SelectedFeatureStyleSet :
+                this.StyleSpec.FeatureStyleSet;
+            Geometry geom = f.Geometry;
+            if (geom == null)
+            {
+                return false;
+            }
+            return geom.Dimension switch
+            {
+                Dimension.Point => HitTestPoint(styleSet, geom, x, y, viewBoundaryBuffer, viewToWorld, spec),
+                Dimension.Curve => HitTestCurve(styleSet, geom, x, y, viewBoundaryBuffer, viewToWorld, spec),
+                Dimension.Surface => HitTestArea(styleSet, geom, x, y, viewBoundaryBuffer, viewToWorld, spec),
+                _ => false
+            };
+        }
+
+        private bool HitTestPoint(FeatureStyleSet styleSet, Geometry geom,
+            double x, double y, double viewBoundaryBuffer, double viewToWorld,
+            ItemsHitTestSpec spec)
+        {
+            double buffer = ((styleSet.PointStyle.Size + styleSet.PointStyle.LineStyle.Width) / 2 + 
+                viewBoundaryBuffer) * viewToWorld;
+            switch (styleSet.PointStyle.Shape)
+            {
+                case PointShape.Circle:
+                    return geom.Distance(new Point(x, y)) < buffer;
+                default:
+                    Envelope env = new Envelope(geom.Coordinate);
+                    env.ExpandBy(buffer);
+                    return env.Contains(x, y);
+            }
+        }
+
+        private bool HitTestCurve(FeatureStyleSet styleSet, Geometry geom,
+            double x, double y, double viewBoundaryBuffer, double viewToWorld,
+            ItemsHitTestSpec spec)
+        {
+            if (geom is GeometryCollection gc)
+            {
+                if (gc.Geometries.Any(g => (g is Point || g is MultiPoint) &&
+                    HitTestPoint(styleSet, g, x, y, viewBoundaryBuffer,
+                    viewToWorld, spec)))
+                {
+                    return true;
+                }
+            }
+            double buffer = (styleSet.LineStyle.Width / 2 +
+                viewBoundaryBuffer) * viewToWorld;
+            return geom.Distance(new Point(x, y)) < buffer;
+        }
+
+        private bool HitTestArea(FeatureStyleSet styleSet, Geometry geom,
+            double x, double y, double viewBoundaryBuffer, double viewToWorld,
+            ItemsHitTestSpec spec)
+        {
+            Point p = new Point(x, y);
+            if (geom is GeometryCollection gc)
+            {
+                if (gc.Geometries.Any(g => g is IPolygonal && g.Contains(p)))
+                {
+                    return true;
+                }
+                if (gc.Geometries.Any(g => (g is Point || g is MultiPoint) &&
+                    HitTestPoint(styleSet, g, x, y, viewBoundaryBuffer,
+                    viewToWorld, spec)))
+                {
+                    return true;
+                }
+            }
+            else if (geom.Contains(p))
+            {
+                return true;
+            }
+            double buffer = (styleSet.LineStyle.Width / 2 + viewBoundaryBuffer) * viewToWorld;
+            return geom.Distance(p) < buffer;
         }
 
         private bool SetNotifyUnregisterRegister(ref FeatureStyleSet field, FeatureStyleSet value,
@@ -213,6 +368,11 @@ namespace TopoPad.Core.Layers
         private void FireStyleChanged()
         {
             OnLayerStyleChanged(new LayerChangedEventArgs(this));
+        }
+
+        private void FireSelectionChanged()
+        {
+            OnLayerSelectionChanged(new LayerSelectionChangedEventArgs(this));
         }
     }
 }

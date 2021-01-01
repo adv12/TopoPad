@@ -159,15 +159,7 @@ namespace TopoPad
             root.ActiveDockable = mainView;
             root.DefaultDockable = mainView;
             root.VisibleDockables = CreateList<IDockable>(mainView);
-            root.Top = CreatePinDock();
-            root.Top.Alignment = Alignment.Top;
-            root.Bottom = CreatePinDock();
-            root.Bottom.Alignment = Alignment.Bottom;
-            root.Left = CreatePinDock();
-            root.Left.Alignment = Alignment.Left;
-            root.Right = CreatePinDock();
-            root.Right.Alignment = Alignment.Right;
-
+            
             return root;
         }
 
@@ -176,7 +168,6 @@ namespace TopoPad
             this.ContextLocator = new Dictionary<string, Func<object>>
             {
                 [nameof(IRootDock)] = () => m_ViewModel,
-                [nameof(IPinDock)] = () => m_ViewModel,
                 [nameof(IProportionalDock)] = () => m_ViewModel,
                 [nameof(IDocumentDock)] = () => m_ViewModel,
                 [nameof(IToolDock)] = () => m_ViewModel,
