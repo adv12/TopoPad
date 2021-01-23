@@ -13,7 +13,6 @@ full text of the license.
              xmlns:tpcl="clr-namespace:TopoPad.Core.Layers;assembly=TopoPad.Core"
              xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
              xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
-             xmlns:iac="clr-namespace:Avalonia.Xaml.Interactions.Custom;assembly=Avalonia.Xaml.Interactions.Custom"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TopoPad.Views.LayersView">
     <UserControl.Styles>

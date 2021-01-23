@@ -69,7 +69,7 @@ namespace TopoPad.SceneInteraction.Interactions
                 {
                     m_Hits.Clear();
                     Coordinate pos = Scene.ViewToWorld(m_Position);
-                    doc.HitTest(pos.X, pos.Y, 3, 1 / Scene.Scale,
+                    doc.HitTest(pos.X, pos.Y, 5, 1 / Scene.Scale,
                         m_HitTestSpec, m_Hits);
                     bool multi = e.KeyModifiers.HasFlag(KeyModifiers.Shift);
                     if (m_Hits.Count == 1)

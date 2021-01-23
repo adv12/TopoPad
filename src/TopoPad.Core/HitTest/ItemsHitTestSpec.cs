@@ -7,12 +7,12 @@ namespace TopoPad.Core.HitTest
 {
     public class ItemsHitTestSpec
     {
-        private Lazy<HashSet<IItemsLayer>> m_Layers;
+        private Lazy<HashSet<IItemsLayer>> m_Layers = new Lazy<HashSet<IItemsLayer>>();
         public HashSet<IItemsLayer> Layers => m_Layers.Value;
 
         public bool LimitLayers { get; set; }
 
-        private Lazy<HashSet<ISpatialItem>> m_SpatialItems;
+        private Lazy<HashSet<ISpatialItem>> m_SpatialItems = new Lazy<HashSet<ISpatialItem>>();
         public HashSet<ISpatialItem> SpatialItems => m_SpatialItems.Value;
 
         public bool LimitItems { get; set; }

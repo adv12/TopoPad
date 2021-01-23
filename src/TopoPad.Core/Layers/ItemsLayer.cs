@@ -305,7 +305,7 @@ namespace TopoPad.Core.Layers
             }
             double buffer = (styleSet.LineStyle.Width / 2 +
                 viewBoundaryBuffer) * viewToWorld;
-            return geom.Distance(new Point(x, y)) < buffer;
+            return geom.Distance(new Point(x, y)) <= buffer;
         }
 
         private bool HitTestArea(FeatureStyleSet styleSet, Geometry geom,
@@ -331,7 +331,7 @@ namespace TopoPad.Core.Layers
                 return true;
             }
             double buffer = (styleSet.LineStyle.Width / 2 + viewBoundaryBuffer) * viewToWorld;
-            return geom.Distance(p) < buffer;
+            return geom.Distance(p) <= buffer;
         }
 
         private bool SetNotifyUnregisterRegister(ref FeatureStyleSet field, FeatureStyleSet value,
